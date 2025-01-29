@@ -69,6 +69,58 @@ const TabLayout = () => {
         }}
       />
       <Tabs.Screen
+        name="medications"
+        options={{
+          title: 'Medications',
+          tabBarIcon: (props) => (
+            <MaterialCommunityIcons
+              {...props}
+              size={24}
+              name={props.focused ? 'pill' : 'pill'}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="appointments"
+        options={{
+          title: 'Appointments',
+          tabBarIcon: (props) => (
+            <MaterialCommunityIcons
+              {...props}
+              size={24}
+              name={props.focused ? 'calendar-clock' : 'calendar-clock-outline'}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="health-monitoring"
+        options={{
+          title: 'Health',
+          tabBarIcon: (props) => (
+            <MaterialCommunityIcons
+              {...props}
+              size={24}
+              name={props.focused ? 'heart-pulse' : 'heart-outline'}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="emergency"
+        options={{
+          title: 'Emergency',
+          tabBarIcon: (props) => (
+            <MaterialCommunityIcons
+              {...props}
+              size={24}
+              name={props.focused ? 'phone-alert' : 'phone-alert-outline'}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           title: Locales.t('profile'),

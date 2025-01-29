@@ -70,8 +70,117 @@ const Settings = () => {
       ) : (
         <Surface elevation={0}>
           <List.AccordionGroup>
+            {/* Health Settings */}
             <List.Accordion
               id="1"
+              title="Health Settings"
+              left={(props) => <List.Icon {...props} icon="heart-settings" />}
+            >
+              <List.Item
+                title="Medication Reminders"
+                description="Set reminder frequency and timing"
+                left={(props) => <List.Icon {...props} icon="pill" />}
+                right={(props) => (
+                  <IconButton
+                    {...props}
+                    icon="chevron-right"
+                    onPress={() => {}}
+                  />
+                )}
+              />
+              <List.Item
+                title="Appointment Notifications"
+                description="Configure appointment alerts"
+                left={(props) => <List.Icon {...props} icon="calendar-clock" />}
+                right={(props) => (
+                  <IconButton
+                    {...props}
+                    icon="chevron-right"
+                    onPress={() => {}}
+                  />
+                )}
+              />
+              <List.Item
+                title="Health Data Sync"
+                description="Manage data synchronization"
+                left={(props) => <List.Icon {...props} icon="sync" />}
+                right={(props) => (
+                  <IconButton
+                    {...props}
+                    icon="chevron-right"
+                    onPress={() => {}}
+                  />
+                )}
+              />
+            </List.Accordion>
+
+            {/* Emergency Settings */}
+            <List.Accordion
+              id="2"
+              title="Emergency Settings"
+              left={(props) => <List.Icon {...props} icon="phone-alert" />}
+            >
+              <List.Item
+                title="Emergency Contacts"
+                description="Manage emergency contact list"
+                left={(props) => <List.Icon {...props} icon="contacts" />}
+                right={(props) => (
+                  <IconButton
+                    {...props}
+                    icon="chevron-right"
+                    onPress={() => {}}
+                  />
+                )}
+              />
+              <List.Item
+                title="Quick Access Numbers"
+                description="Set speed dial for emergency services"
+                left={(props) => <List.Icon {...props} icon="phone-fast" />}
+                right={(props) => (
+                  <IconButton
+                    {...props}
+                    icon="chevron-right"
+                    onPress={() => {}}
+                  />
+                )}
+              />
+            </List.Accordion>
+
+            {/* Accessibility */}
+            <List.Accordion
+              id="3"
+              title="Accessibility"
+              left={(props) => <List.Icon {...props} icon="access-point" />}
+            >
+              <List.Item
+                title="Text Size"
+                description="Adjust application text size"
+                left={(props) => <List.Icon {...props} icon="format-size" />}
+                right={(props) => (
+                  <IconButton
+                    {...props}
+                    icon="chevron-right"
+                    onPress={() => {}}
+                  />
+                )}
+              />
+              <List.Item
+                title="Voice Commands"
+                description="Enable voice control features"
+                left={(props) => <List.Icon {...props} icon="microphone" />}
+                right={(props) => (
+                  <IconButton
+                    {...props}
+                    icon="chevron-right"
+                    onPress={() => {}}
+                  />
+                )}
+              />
+            </List.Accordion>
+
+            {/* Appearance Settings */}
+            <List.Accordion
+              id="4"
               title={Locales.t('appearance')}
               left={(props) => <List.Icon {...props} icon="palette" />}
             >

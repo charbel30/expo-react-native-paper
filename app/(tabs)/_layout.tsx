@@ -6,8 +6,6 @@ import { Appbar, Menu, Tooltip } from 'react-native-paper'
 import { Locales, TabBar, TabsHeader } from '@/lib'
 
 const TabLayout = () => {
-  const [visible, setVisible] = React.useState(false)
-
   return (
     <Tabs
       tabBar={(props) => <TabBar {...props} />}
@@ -28,55 +26,40 @@ const TabLayout = () => {
                   onPress={() => router.push('/search')}
                 />
               </Tooltip>
-              <Menu
-                statusBarHeight={48}
-                visible={visible}
-                onDismiss={() => setVisible(false)}
-                anchor={
-                  <Tooltip title={Locales.t('options')}>
-                    <Appbar.Action
-                      icon="dots-vertical"
-                      onPress={() => setVisible(true)}
-                    />
-                  </Tooltip>
-                }
-              >
-                <Menu.Item
-                  title={Locales.t('titleSettings')}
-                  leadingIcon="cog"
-                  onPress={() => router.push('/(tabs)/settings')}
+              <Tooltip title={Locales.t('titleSettings')}>
+                <Appbar.Action
+                  icon="cog"
+                  onPress={() => router.push('/modals/settings')}
                 />
-                <Menu.Item
-                  title={Locales.t('stackNav')}
-                  leadingIcon="card-multiple-outline"
-                  onPress={() => router.push('/modal')}
-                />
-                <Menu.Item
-                  title={Locales.t('drawerNav')}
-                  leadingIcon="gesture-swipe"
-                  onPress={() => router.push('/drawer')}
-                />
-              </Menu>
+              </Tooltip>
             </>
           ),
-          tabBarIcon: (props) => (
+          tabBarIcon: ({ focused, color }) => (
             <MaterialCommunityIcons
-              {...props}
+              color={color}
               size={24}
-              name={props.focused ? 'home' : 'home-outline'}
+              name={focused ? 'home' : 'home-outline'}
             />
           ),
         }}
       />
       <Tabs.Screen
-        name="medications"
+        name="health-monitoring"
         options={{
-          title: 'Medications',
-          tabBarIcon: (props) => (
+          title: 'Health Monitor',
+          headerRight: () => (
+            <Tooltip title={Locales.t('search')}>
+              <Appbar.Action
+                icon="magnify"
+                onPress={() => router.push('/search')}
+              />
+            </Tooltip>
+          ),
+          tabBarIcon: ({ focused, color }) => (
             <MaterialCommunityIcons
-              {...props}
+              color={color}
               size={24}
-              name={props.focused ? 'pill' : 'pill'}
+              name={focused ? 'heart-pulse' : 'heart-outline'}
             />
           ),
         }}
@@ -85,24 +68,19 @@ const TabLayout = () => {
         name="appointments"
         options={{
           title: 'Appointments',
-          tabBarIcon: (props) => (
-            <MaterialCommunityIcons
-              {...props}
-              size={24}
-              name={props.focused ? 'calendar-clock' : 'calendar-clock-outline'}
-            />
+          headerRight: () => (
+            <Tooltip title={Locales.t('search')}>
+              <Appbar.Action
+                icon="magnify"
+                onPress={() => router.push('/search')}
+              />
+            </Tooltip>
           ),
-        }}
-      />
-      <Tabs.Screen
-        name="health-monitoring"
-        options={{
-          title: 'Health',
-          tabBarIcon: (props) => (
+          tabBarIcon: ({ focused, color }) => (
             <MaterialCommunityIcons
-              {...props}
+              color={color}
               size={24}
-              name={props.focused ? 'heart-pulse' : 'heart-outline'}
+              name={focused ? 'calendar-clock' : 'calendar-clock-outline'}
             />
           ),
         }}
@@ -111,11 +89,21 @@ const TabLayout = () => {
         name="emergency"
         options={{
           title: 'Emergency',
-          tabBarIcon: (props) => (
+          headerRight: () => (
+            <Tooltip title="Call Emergency">
+              <Appbar.Action
+                icon="phone"
+                onPress={() => {
+                  /* Add emergency call handler */
+                }}
+              />
+            </Tooltip>
+          ),
+          tabBarIcon: ({ focused, color }) => (
             <MaterialCommunityIcons
-              {...props}
+              color={color}
               size={24}
-              name={props.focused ? 'phone-alert' : 'phone-alert-outline'}
+              name={focused ? 'phone-alert' : 'phone-alert-outline'}
             />
           ),
         }}
@@ -125,47 +113,18 @@ const TabLayout = () => {
         options={{
           title: Locales.t('profile'),
           headerRight: () => (
-            <>
-              <Tooltip title={Locales.t('search')}>
-                <Appbar.Action
-                  icon="magnify"
-                  onPress={() => router.push('/search')}
-                />
-              </Tooltip>
-              <Tooltip title={Locales.t('titleSettings')}>
-                <Appbar.Action
-                  icon="cog"
-                  onPress={() => router.push('/(tabs)/settings')}
-                />
-              </Tooltip>
-            </>
-          ),
-          tabBarIcon: (props) => (
-            <MaterialCommunityIcons
-              {...props}
-              size={24}
-              name={props.focused ? 'account' : 'account-outline'}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="settings"
-        options={{
-          title: Locales.t('titleSettings'),
-          headerRight: () => (
-            <Tooltip title={Locales.t('drawerNav')}>
+            <Tooltip title={Locales.t('titleSettings')}>
               <Appbar.Action
-                icon="gesture-swipe"
-                onPress={() => router.push('/drawer')}
+                icon="cog"
+                onPress={() => router.push('/modals/settings')}
               />
             </Tooltip>
           ),
-          tabBarIcon: (props) => (
+          tabBarIcon: ({ focused, color }) => (
             <MaterialCommunityIcons
-              {...props}
+              color={color}
               size={24}
-              name={props.focused ? 'cog' : 'cog-outline'}
+              name={focused ? 'account' : 'account-outline'}
             />
           ),
         }}

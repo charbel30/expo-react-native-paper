@@ -1,12 +1,23 @@
 import React from 'react'
 import { ScrollView, View, StyleSheet } from 'react-native'
-import { Surface, Card, Text, Button, List, IconButton, Searchbar, Chip } from 'react-native-paper'
+import {
+  Surface,
+  Card,
+  Text,
+  Button,
+  List,
+  IconButton,
+  Searchbar,
+  Chip,
+} from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const AppointmentsScreen = () => {
   const [searchQuery, setSearchQuery] = React.useState('')
   const [selectedDate, setSelectedDate] = React.useState(new Date())
-  const [selectedTimeSlot, setSelectedTimeSlot] = React.useState<string | null>(null)
+  const [selectedTimeSlot, setSelectedTimeSlot] = React.useState<string | null>(
+    null,
+  )
 
   // Mock data - in real app this would come from backend/state management
   const appointments = [
@@ -20,8 +31,8 @@ const AppointmentsScreen = () => {
       instructions: 'Please bring your latest ECG report',
       contact: {
         phone: '+1 (555) 123-4567',
-        email: 'dr.smith@heartcare.com'
-      }
+        email: 'dr.smith@heartcare.com',
+      },
     },
     {
       id: 2,
@@ -33,15 +44,24 @@ const AppointmentsScreen = () => {
       instructions: 'Fasting required for blood work',
       contact: {
         phone: '+1 (555) 987-6543',
-        email: 'dr.johnson@familyhealth.com'
-      }
-    }
+        email: 'dr.johnson@familyhealth.com',
+      },
+    },
   ]
 
   const timeSlots = [
-    '9:00 AM', '9:30 AM', '10:00 AM', '10:30 AM',
-    '11:00 AM', '11:30 AM', '2:00 PM', '2:30 PM',
-    '3:00 PM', '3:30 PM', '4:00 PM', '4:30 PM'
+    '9:00 AM',
+    '9:30 AM',
+    '10:00 AM',
+    '10:30 AM',
+    '11:00 AM',
+    '11:30 AM',
+    '2:00 PM',
+    '2:30 PM',
+    '3:00 PM',
+    '3:30 PM',
+    '4:00 PM',
+    '4:30 PM',
   ]
 
   // Generate calendar days
@@ -70,11 +90,17 @@ const AppointmentsScreen = () => {
                 {calendarDays.map((date, index) => (
                   <Button
                     key={index}
-                    mode={date.toDateString() === selectedDate.toDateString() ? 'contained' : 'outlined'}
+                    mode={
+                      date.toDateString() === selectedDate.toDateString()
+                        ? 'contained'
+                        : 'outlined'
+                    }
                     style={styles.dateButton}
                     onPress={() => setSelectedDate(date)}
                   >
-                    <Text style={styles.dayName}>{date.toLocaleDateString('en-US', { weekday: 'short' })}</Text>
+                    <Text style={styles.dayName}>
+                      {date.toLocaleDateString('en-US', { weekday: 'short' })}
+                    </Text>
                     <Text style={styles.dayNumber}>{date.getDate()}</Text>
                   </Button>
                 ))}
@@ -92,10 +118,14 @@ const AppointmentsScreen = () => {
                 key={index}
                 title={apt.doctor}
                 description={`${apt.specialty}\n${apt.date} at ${apt.time}`}
-                left={props => (
-                  <MaterialCommunityIcons name="calendar-clock" size={24} color="#666" />
+                left={(props) => (
+                  <MaterialCommunityIcons
+                    name="calendar-clock"
+                    size={24}
+                    color="#666"
+                  />
                 )}
-                right={props => (
+                right={(props) => (
                   <View style={styles.appointmentActions}>
                     <IconButton icon="phone" onPress={() => {}} />
                     <IconButton icon="email" onPress={() => {}} />
@@ -155,12 +185,12 @@ const AppointmentsScreen = () => {
               <List.Item
                 title="Location"
                 description={apt.location}
-                left={props => <List.Icon {...props} icon="map-marker" />}
+                left={(props) => <List.Icon {...props} icon="map-marker" />}
               />
               <List.Item
                 title="Instructions"
                 description={apt.instructions}
-                left={props => <List.Icon {...props} icon="information" />}
+                left={(props) => <List.Icon {...props} icon="information" />}
               />
               <View style={styles.contactButtons}>
                 <Button

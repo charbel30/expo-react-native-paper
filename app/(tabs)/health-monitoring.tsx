@@ -1,10 +1,22 @@
 import React from 'react'
 import { ScrollView, View, StyleSheet } from 'react-native'
-import { Surface, Card, Text, Button, TextInput, SegmentedButtons, List, IconButton } from 'react-native-paper'
+import {
+  Surface,
+  Card,
+  Text,
+  Button,
+  TextInput,
+  SegmentedButtons,
+  List,
+  IconButton,
+} from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const HealthMonitoringScreen = () => {
-  const [bloodPressure, setBloodPressure] = React.useState({ systolic: '', diastolic: '' })
+  const [bloodPressure, setBloodPressure] = React.useState({
+    systolic: '',
+    diastolic: '',
+  })
   const [weight, setWeight] = React.useState('')
   const [glucose, setGlucose] = React.useState('')
   const [painLevel, setPainLevel] = React.useState('0')
@@ -32,12 +44,22 @@ const HealthMonitoringScreen = () => {
       { date: '2024-01-24', value: '92' },
       { date: '2024-01-25', value: '94' },
       { date: '2024-01-26', value: '96' },
-    ]
+    ],
   }
 
   const symptoms = [
-    { date: '2024-01-26', type: 'Headache', severity: '6', duration: '2 hours' },
-    { date: '2024-01-25', type: 'Joint Pain', severity: '4', duration: '3 hours' },
+    {
+      date: '2024-01-26',
+      type: 'Headache',
+      severity: '6',
+      duration: '2 hours',
+    },
+    {
+      date: '2024-01-25',
+      type: 'Joint Pain',
+      severity: '4',
+      duration: '3 hours',
+    },
   ]
 
   return (
@@ -51,7 +73,9 @@ const HealthMonitoringScreen = () => {
               <TextInput
                 label="Systolic"
                 value={bloodPressure.systolic}
-                onChangeText={text => setBloodPressure({ ...bloodPressure, systolic: text })}
+                onChangeText={(text) =>
+                  setBloodPressure({ ...bloodPressure, systolic: text })
+                }
                 keyboardType="numeric"
                 style={styles.bpInput}
               />
@@ -59,7 +83,9 @@ const HealthMonitoringScreen = () => {
               <TextInput
                 label="Diastolic"
                 value={bloodPressure.diastolic}
-                onChangeText={text => setBloodPressure({ ...bloodPressure, diastolic: text })}
+                onChangeText={(text) =>
+                  setBloodPressure({ ...bloodPressure, diastolic: text })
+                }
                 keyboardType="numeric"
                 style={styles.bpInput}
               />
@@ -81,7 +107,11 @@ const HealthMonitoringScreen = () => {
               style={styles.input}
             />
 
-            <Button mode="contained" onPress={() => {}} style={styles.saveButton}>
+            <Button
+              mode="contained"
+              onPress={() => {}}
+              style={styles.saveButton}
+            >
               Save Measurements
             </Button>
           </Card.Content>
@@ -118,7 +148,7 @@ const HealthMonitoringScreen = () => {
                   key={index}
                   title={`Blood Pressure: ${reading.value}`}
                   description={reading.date}
-                  left={props => <List.Icon {...props} icon="heart-pulse" />}
+                  left={(props) => <List.Icon {...props} icon="heart-pulse" />}
                 />
               ))}
             </List.Section>
@@ -127,7 +157,7 @@ const HealthMonitoringScreen = () => {
 
         {/* Symptom Tracking */}
         <Card style={styles.card}>
-          <Card.Title 
+          <Card.Title
             title="Symptom Tracking"
             right={(props) => (
               <IconButton {...props} icon="plus" onPress={() => {}} />
@@ -166,7 +196,7 @@ const HealthMonitoringScreen = () => {
                   key={index}
                   title={symptom.type}
                   description={`Severity: ${symptom.severity}/10 - Duration: ${symptom.duration}`}
-                  left={props => <List.Icon {...props} icon="bandage" />}
+                  left={(props) => <List.Icon {...props} icon="bandage" />}
                 />
               ))}
             </List.Section>
@@ -180,23 +210,15 @@ const HealthMonitoringScreen = () => {
             <List.Item
               title="Share with Dr. Smith"
               description="Cardiologist"
-              right={props => (
-                <IconButton
-                  {...props}
-                  icon="share"
-                  onPress={() => {}}
-                />
+              right={(props) => (
+                <IconButton {...props} icon="share" onPress={() => {}} />
               )}
             />
             <List.Item
               title="Share with Dr. Johnson"
               description="Primary Care"
-              right={props => (
-                <IconButton
-                  {...props}
-                  icon="share"
-                  onPress={() => {}}
-                />
+              right={(props) => (
+                <IconButton {...props} icon="share" onPress={() => {}} />
               )}
             />
           </Card.Content>

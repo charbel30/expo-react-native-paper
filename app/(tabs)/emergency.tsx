@@ -1,25 +1,49 @@
 import React from 'react'
 import { ScrollView, View, StyleSheet, Linking } from 'react-native'
-import { Surface, Card, Text, Button, List, IconButton, Portal, Dialog } from 'react-native-paper'
+import {
+  Surface,
+  Card,
+  Text,
+  Button,
+  List,
+  IconButton,
+  Portal,
+  Dialog,
+} from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const EmergencyScreen = () => {
   const [confirmDialogVisible, setConfirmDialogVisible] = React.useState(false)
-  const [selectedContact, setSelectedContact] = React.useState<null | { name: string, number: string }>(null)
+  const [selectedContact, setSelectedContact] = React.useState<null | {
+    name: string
+    number: string
+  }>(null)
 
   // Mock data - in real app this would come from backend/state management
   const emergencyContacts = [
     { name: 'Emergency Services', number: '911', type: 'emergency' },
-    { name: 'Dr. Smith (Cardiologist)', number: '+1 (555) 123-4567', type: 'doctor' },
-    { name: 'Dr. Johnson (Primary)', number: '+1 (555) 987-6543', type: 'doctor' },
-    { name: 'Sarah (Caregiver)', number: '+1 (555) 234-5678', type: 'caregiver' },
-    { name: 'Local Pharmacy', number: '+1 (555) 345-6789', type: 'service' }
+    {
+      name: 'Dr. Smith (Cardiologist)',
+      number: '+1 (555) 123-4567',
+      type: 'doctor',
+    },
+    {
+      name: 'Dr. Johnson (Primary)',
+      number: '+1 (555) 987-6543',
+      type: 'doctor',
+    },
+    {
+      name: 'Sarah (Caregiver)',
+      number: '+1 (555) 234-5678',
+      type: 'caregiver',
+    },
+    { name: 'Local Pharmacy', number: '+1 (555) 345-6789', type: 'service' },
   ]
 
   const emergencyProtocols: {
-    condition: string;
-    steps: string[];
-    icon: keyof typeof MaterialCommunityIcons.glyphMap;
+    condition: string
+    steps: string[]
+    icon: keyof typeof MaterialCommunityIcons.glyphMap
   }[] = [
     {
       condition: 'Chest Pain',
@@ -28,9 +52,9 @@ const EmergencyScreen = () => {
         'Take prescribed nitroglycerin if available',
         'Call emergency services (911) immediately',
         'Chew an aspirin if recommended by your doctor',
-        'Stay still and wait for help'
+        'Stay still and wait for help',
       ],
-      icon: 'heart-pulse'
+      icon: 'heart-pulse',
     },
     {
       condition: 'Severe Low Blood Sugar',
@@ -39,9 +63,9 @@ const EmergencyScreen = () => {
         'Take 15g of fast-acting carbohydrates',
         'Wait 15 minutes and recheck blood sugar',
         'If symptoms persist, call for help',
-        'Contact your doctor after the episode'
+        'Contact your doctor after the episode',
       ],
-      icon: 'water'
+      icon: 'water',
     },
     {
       condition: 'Severe Allergic Reaction',
@@ -50,13 +74,13 @@ const EmergencyScreen = () => {
         'Call emergency services (911)',
         'Lie down with legs elevated',
         'Stay calm and still',
-        'Monitor breathing and consciousness'
+        'Monitor breathing and consciousness',
       ],
-      icon: 'alert'
-    }
+      icon: 'alert',
+    },
   ]
 
-  const handleCallPress = (contact: { name: string, number: string }) => {
+  const handleCallPress = (contact: { name: string; number: string }) => {
     setSelectedContact(contact)
     setConfirmDialogVisible(true)
   }
@@ -73,8 +97,8 @@ const EmergencyScreen = () => {
       <ScrollView style={styles.scrollView}>
         {/* Quick Emergency Actions */}
         <Card style={[styles.card, styles.emergencyCard]}>
-          <Card.Title 
-            title="Emergency Services" 
+          <Card.Title
+            title="Emergency Services"
             titleStyle={styles.emergencyTitle}
           />
           <Card.Content>
@@ -99,17 +123,19 @@ const EmergencyScreen = () => {
                 key={index}
                 title={contact.name}
                 description={contact.number}
-                left={props => (
+                left={(props) => (
                   <List.Icon
                     {...props}
                     icon={
-                      contact.type === 'doctor' ? 'doctor' :
-                      contact.type === 'caregiver' ? 'account-heart' :
-                      'phone'
+                      contact.type === 'doctor'
+                        ? 'doctor'
+                        : contact.type === 'caregiver'
+                          ? 'account-heart'
+                          : 'phone'
                     }
                   />
                 )}
-                right={props => (
+                right={(props) => (
                   <IconButton
                     {...props}
                     icon="phone"
@@ -126,7 +152,7 @@ const EmergencyScreen = () => {
           <Card key={index} style={styles.card}>
             <Card.Title
               title={protocol.condition}
-              left={props => (
+              left={(props) => (
                 <MaterialCommunityIcons
                   {...props}
                   name={protocol.icon}
@@ -141,7 +167,7 @@ const EmergencyScreen = () => {
                   <List.Item
                     key={stepIndex}
                     title={step}
-                    left={props => (
+                    left={(props) => (
                       <Text style={styles.stepNumber}>{stepIndex + 1}</Text>
                     )}
                   />
@@ -181,7 +207,9 @@ const EmergencyScreen = () => {
             <Text>Are you sure you want to call {selectedContact?.name}?</Text>
           </Dialog.Content>
           <Dialog.Actions>
-            <Button onPress={() => setConfirmDialogVisible(false)}>Cancel</Button>
+            <Button onPress={() => setConfirmDialogVisible(false)}>
+              Cancel
+            </Button>
             <Button onPress={makeCall}>Call</Button>
           </Dialog.Actions>
         </Dialog>

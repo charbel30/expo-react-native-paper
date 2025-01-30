@@ -1,6 +1,15 @@
 import React from 'react'
 import { ScrollView, View, StyleSheet } from 'react-native'
-import { Surface, Card, Text, Button, IconButton, List, FAB, Chip } from 'react-native-paper'
+import {
+  Surface,
+  Card,
+  Text,
+  Button,
+  IconButton,
+  List,
+  FAB,
+  Chip,
+} from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
 const MedicationsScreen = () => {
@@ -14,7 +23,7 @@ const MedicationsScreen = () => {
       color: '#FF5252',
       nextDose: '8:00 AM',
       refillDate: '2024-02-15',
-      taken: false
+      taken: false,
     },
     {
       name: 'Metformin',
@@ -24,7 +33,7 @@ const MedicationsScreen = () => {
       color: '#448AFF',
       nextDose: '9:00 AM',
       refillDate: '2024-02-20',
-      taken: true
+      taken: true,
     },
     {
       name: 'Vitamin D',
@@ -34,14 +43,18 @@ const MedicationsScreen = () => {
       color: '#4CAF50',
       nextDose: '9:00 AM',
       refillDate: '2024-03-01',
-      taken: true
-    }
+      taken: true,
+    },
   ]
 
   const timelineEvents = [
     { time: '8:00 AM', medications: ['Aspirin'], status: 'upcoming' },
-    { time: '9:00 AM', medications: ['Metformin', 'Vitamin D'], status: 'taken' },
-    { time: '8:00 PM', medications: ['Metformin'], status: 'upcoming' }
+    {
+      time: '9:00 AM',
+      medications: ['Metformin', 'Vitamin D'],
+      status: 'taken',
+    },
+    { time: '8:00 PM', medications: ['Metformin'], status: 'upcoming' },
   ]
 
   return (
@@ -56,15 +69,28 @@ const MedicationsScreen = () => {
                 key={index}
                 title={med.name}
                 description={`${med.dosage} - ${med.frequency}`}
-                left={props => (
-                  <View style={[styles.medicationType, { backgroundColor: med.color }]}>
-                    <MaterialCommunityIcons name="pill" size={24} color="white" />
+                left={(props) => (
+                  <View
+                    style={[
+                      styles.medicationType,
+                      { backgroundColor: med.color },
+                    ]}
+                  >
+                    <MaterialCommunityIcons
+                      name="pill"
+                      size={24}
+                      color="white"
+                    />
                   </View>
                 )}
-                right={props => (
+                right={(props) => (
                   <IconButton
                     {...props}
-                    icon={med.taken ? 'check-circle' : 'checkbox-blank-circle-outline'}
+                    icon={
+                      med.taken
+                        ? 'check-circle'
+                        : 'checkbox-blank-circle-outline'
+                    }
                     onPress={() => {}}
                   />
                 )}
@@ -82,17 +108,27 @@ const MedicationsScreen = () => {
                 <View key={index} style={styles.timelineEvent}>
                   <Text style={styles.timelineTime}>{event.time}</Text>
                   <View style={styles.timelineContent}>
-                    <View style={[
-                      styles.timelineDot,
-                      { backgroundColor: event.status === 'taken' ? '#4CAF50' : '#757575' }
-                    ]} />
+                    <View
+                      style={[
+                        styles.timelineDot,
+                        {
+                          backgroundColor:
+                            event.status === 'taken' ? '#4CAF50' : '#757575',
+                        },
+                      ]}
+                    />
                     <View style={styles.timelineMeds}>
                       {event.medications.map((med, medIndex) => (
                         <Chip
                           key={medIndex}
                           style={[
                             styles.timelineChip,
-                            { backgroundColor: event.status === 'taken' ? '#E8F5E9' : '#F5F5F5' }
+                            {
+                              backgroundColor:
+                                event.status === 'taken'
+                                  ? '#E8F5E9'
+                                  : '#F5F5F5',
+                            },
                           ]}
                         >
                           {med}
@@ -111,13 +147,15 @@ const MedicationsScreen = () => {
           <Card.Title title="Refill Reminders" />
           <Card.Content>
             {medications
-              .filter(med => new Date(med.refillDate) <= new Date('2024-02-15'))
+              .filter(
+                (med) => new Date(med.refillDate) <= new Date('2024-02-15'),
+              )
               .map((med, index) => (
                 <List.Item
                   key={index}
                   title={med.name}
                   description={`Refill needed by ${med.refillDate}`}
-                  right={props => (
+                  right={(props) => (
                     <Button mode="outlined" onPress={() => {}}>
                       Request Refill
                     </Button>

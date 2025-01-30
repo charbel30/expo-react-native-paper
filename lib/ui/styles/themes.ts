@@ -21,161 +21,77 @@ const BaseDarkTheme = {
 const Themes = {
   light: {
     default: BaseLightTheme,
-    orange: {
+    emergency: {
       ...BaseLightTheme,
       colors: {
         ...BaseLightTheme.colors,
-        ...Colors.light.orange,
+        ...Colors.light.emergency,
       },
     },
-    red: {
+    appointments: {
       ...BaseLightTheme,
       colors: {
         ...BaseLightTheme.colors,
-        ...Colors.light.red,
+        ...Colors.light.appointments,
       },
     },
-    violet: {
+    medications: {
       ...BaseLightTheme,
       colors: {
         ...BaseLightTheme.colors,
-        ...Colors.light.violet,
+        ...Colors.light.medications,
       },
     },
-    indigo: {
+    monitoring: {
       ...BaseLightTheme,
       colors: {
         ...BaseLightTheme.colors,
-        ...Colors.light.indigo,
+        ...Colors.light.monitoring,
       },
     },
-    blue: {
+    profile: {
       ...BaseLightTheme,
       colors: {
         ...BaseLightTheme.colors,
-        ...Colors.light.blue,
-      },
-    },
-    teal: {
-      ...BaseLightTheme,
-      colors: {
-        ...BaseLightTheme.colors,
-        ...Colors.light.teal,
-      },
-    },
-    cyan: {
-      ...BaseLightTheme,
-      colors: {
-        ...BaseLightTheme.colors,
-        ...Colors.light.cyan,
-      },
-    },
-    green: {
-      ...BaseLightTheme,
-      colors: {
-        ...BaseLightTheme.colors,
-        ...Colors.light.green,
-      },
-    },
-    lime: {
-      ...BaseLightTheme,
-      colors: {
-        ...BaseLightTheme.colors,
-        ...Colors.light.lime,
-      },
-    },
-    olive: {
-      ...BaseLightTheme,
-      colors: {
-        ...BaseLightTheme.colors,
-        ...Colors.light.olive,
-      },
-    },
-    brown: {
-      ...BaseLightTheme,
-      colors: {
-        ...BaseLightTheme.colors,
-        ...Colors.light.brown,
+        ...Colors.light.profile,
       },
     },
   },
   dark: {
     default: BaseDarkTheme,
-    red: {
+    emergency: {
       ...BaseDarkTheme,
       colors: {
         ...BaseDarkTheme.colors,
-        ...Colors.dark.red,
+        ...Colors.dark.emergency,
       },
     },
-    orange: {
+    appointments: {
       ...BaseDarkTheme,
       colors: {
         ...BaseDarkTheme.colors,
-        ...Colors.dark.orange,
+        ...Colors.dark.appointments,
       },
     },
-    violet: {
+    medications: {
       ...BaseDarkTheme,
       colors: {
         ...BaseDarkTheme.colors,
-        ...Colors.dark.violet,
+        ...Colors.dark.medications,
       },
     },
-    indigo: {
+    monitoring: {
       ...BaseDarkTheme,
       colors: {
         ...BaseDarkTheme.colors,
-        ...Colors.dark.indigo,
+        ...Colors.dark.monitoring,
       },
     },
-    blue: {
+    profile: {
       ...BaseDarkTheme,
       colors: {
         ...BaseDarkTheme.colors,
-        ...Colors.dark.blue,
-      },
-    },
-    teal: {
-      ...BaseDarkTheme,
-      colors: {
-        ...BaseDarkTheme.colors,
-        ...Colors.dark.teal,
-      },
-    },
-    cyan: {
-      ...BaseDarkTheme,
-      colors: {
-        ...BaseDarkTheme.colors,
-        ...Colors.dark.cyan,
-      },
-    },
-    green: {
-      ...BaseDarkTheme,
-      colors: {
-        ...BaseDarkTheme.colors,
-        ...Colors.dark.green,
-      },
-    },
-    lime: {
-      ...BaseDarkTheme,
-      colors: {
-        ...BaseDarkTheme.colors,
-        ...Colors.dark.lime,
-      },
-    },
-    olive: {
-      ...BaseDarkTheme,
-      colors: {
-        ...BaseDarkTheme.colors,
-        ...Colors.dark.olive,
-      },
-    },
-    brown: {
-      ...BaseDarkTheme,
-      colors: {
-        ...BaseDarkTheme.colors,
-        ...Colors.dark.brown,
+        ...Colors.dark.profile,
       },
     },
   },

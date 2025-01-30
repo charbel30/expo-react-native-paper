@@ -1,7 +1,15 @@
 import React from 'react'
 import { ScrollView, View, StyleSheet } from 'react-native'
-import { Surface, Card, Text, Button, ProgressBar, IconButton } from 'react-native-paper'
+import {
+  Surface,
+  Card,
+  Text,
+  Button,
+  ProgressBar,
+  IconButton,
+} from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
+import { router } from 'expo-router'
 
 const DashboardScreen = () => {
   // Mock data - in real app this would come from a backend/state management
@@ -11,8 +19,18 @@ const DashboardScreen = () => {
   ]
 
   const appointments = [
-    { doctor: 'Dr. Smith', specialty: 'Cardiologist', date: '2024-02-01', time: '10:00 AM' },
-    { doctor: 'Dr. Johnson', specialty: 'Primary Care', date: '2024-02-15', time: '2:30 PM' },
+    {
+      doctor: 'Dr. Smithww',
+      specialty: 'Cardiologist',
+      date: '2024-02-01',
+      time: '10:00 AM',
+    },
+    {
+      doctor: 'Dr. Johnson',
+      specialty: 'Primary Care',
+      date: '2024-02-15',
+      time: '2:30 PM',
+    },
   ]
 
   const healthMetrics = {
@@ -26,10 +44,14 @@ const DashboardScreen = () => {
       <ScrollView style={styles.scrollView}>
         {/* Medication Summary Widget */}
         <Card style={styles.card}>
-          <Card.Title 
-            title="Today's Medications" 
+          <Card.Title
+            title="Today's Medications"
             right={(props) => (
-              <IconButton {...props} icon="pill" onPress={() => {}} />
+              <IconButton
+                {...props}
+                icon="pill"
+                onPress={() => router.push('./modals/medications')}
+              />
             )}
           />
           <Card.Content>
@@ -37,11 +59,15 @@ const DashboardScreen = () => {
             <Text style={styles.subText}>50% completed today</Text>
             {medications.map((med, index) => (
               <View key={index} style={styles.medicationItem}>
-                <Text>{med.name} - {med.time}</Text>
+                <Text>
+                  {med.name} - {med.time}
+                </Text>
                 <IconButton
-                  icon={med.taken ? 'check-circle' : 'checkbox-blank-circle-outline'}
+                  icon={
+                    med.taken ? 'check-circle' : 'checkbox-blank-circle-outline'
+                  }
                   size={20}
-                  onPress={() => {}}
+                  onPress={() => router.push('/modals/medications')}
                 />
               </View>
             ))}
@@ -50,8 +76,8 @@ const DashboardScreen = () => {
 
         {/* Appointments Widget */}
         <Card style={styles.card}>
-          <Card.Title 
-            title="Upcoming Appointments" 
+          <Card.Title
+            title="Upcoming Appointments"
             right={(props) => (
               <IconButton {...props} icon="calendar" onPress={() => {}} />
             )}
@@ -65,7 +91,11 @@ const DashboardScreen = () => {
                 </Text>
               </View>
             ))}
-            <Button mode="outlined" style={styles.viewAllButton} onPress={() => {}}>
+            <Button
+              mode="outlined"
+              style={styles.viewAllButton}
+              onPress={() => {}}
+            >
               View All Appointments
             </Button>
           </Card.Content>
@@ -78,26 +108,46 @@ const DashboardScreen = () => {
             <View style={styles.metricsGrid}>
               <View style={styles.metricItem}>
                 <Text style={styles.metricLabel}>Blood Pressure</Text>
-                <Text style={styles.metricValue}>{healthMetrics.bloodPressure}</Text>
+                <Text style={styles.metricValue}>
+                  {healthMetrics.bloodPressure}
+                </Text>
                 <View style={styles.trendContainer}>
-                  <MaterialCommunityIcons name="arrow-down" size={16} color="#4CAF50" />
-                  <Text style={[styles.trendText, { color: '#4CAF50' }]}>2%</Text>
+                  <MaterialCommunityIcons
+                    name="arrow-down"
+                    size={16}
+                    color="#4CAF50"
+                  />
+                  <Text style={[styles.trendText, { color: '#4CAF50' }]}>
+                    2%
+                  </Text>
                 </View>
               </View>
               <View style={styles.metricItem}>
                 <Text style={styles.metricLabel}>Weight</Text>
                 <Text style={styles.metricValue}>{healthMetrics.weight}</Text>
                 <View style={styles.trendContainer}>
-                  <MaterialCommunityIcons name="arrow-up" size={16} color="#F44336" />
-                  <Text style={[styles.trendText, { color: '#F44336' }]}>1%</Text>
+                  <MaterialCommunityIcons
+                    name="arrow-up"
+                    size={16}
+                    color="#F44336"
+                  />
+                  <Text style={[styles.trendText, { color: '#F44336' }]}>
+                    1%
+                  </Text>
                 </View>
               </View>
               <View style={styles.metricItem}>
                 <Text style={styles.metricLabel}>Glucose</Text>
                 <Text style={styles.metricValue}>{healthMetrics.glucose}</Text>
                 <View style={styles.trendContainer}>
-                  <MaterialCommunityIcons name="arrow-down" size={16} color="#4CAF50" />
-                  <Text style={[styles.trendText, { color: '#4CAF50' }]}>3%</Text>
+                  <MaterialCommunityIcons
+                    name="arrow-down"
+                    size={16}
+                    color="#4CAF50"
+                  />
+                  <Text style={[styles.trendText, { color: '#4CAF50' }]}>
+                    3%
+                  </Text>
                 </View>
               </View>
             </View>
@@ -105,8 +155,8 @@ const DashboardScreen = () => {
         </Card>
 
         {/* Emergency Contact Button */}
-        <Button 
-          mode="contained" 
+        <Button
+          mode="contained"
           style={styles.emergencyButton}
           icon="phone"
           onPress={() => {}}

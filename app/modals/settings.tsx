@@ -381,7 +381,7 @@ const Settings = () => {
       <Surface elevation={0} style={styles.screen}>
         <ScreenInfo
           title={Locales.t('titleSettings')}
-          path="app/(tabs)/settings.tsx"
+          path="app/modals/settings.tsx"
         />
       </Surface>
 

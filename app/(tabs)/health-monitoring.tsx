@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, StyleSheet } from 'react-native'
+import { ScrollView, View, StyleSheet, Dimensions } from 'react-native'
 import {
   Surface,
   Card,
@@ -9,10 +9,18 @@ import {
   SegmentedButtons,
   List,
   IconButton,
+  useTheme,
+  Chip,
+  Portal,
+  Modal,
+  Divider,
 } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
+const { width } = Dimensions.get('window')
+
 const HealthMonitoringScreen = () => {
+  const theme = useTheme()
   const [bloodPressure, setBloodPressure] = React.useState({
     systolic: '',
     diastolic: '',
@@ -21,6 +29,8 @@ const HealthMonitoringScreen = () => {
   const [glucose, setGlucose] = React.useState('')
   const [painLevel, setPainLevel] = React.useState('0')
   const [selectedTimeRange, setSelectedTimeRange] = React.useState('week')
+  const [showAddSymptom, setShowAddSymptom] = React.useState(false)
+  const [symptomType, setSymptomType] = React.useState('')
 
   // Mock data - in real app this would come from backend/state management
   const healthData = {
@@ -62,55 +72,132 @@ const HealthMonitoringScreen = () => {
     },
   ]
 
+  const symptomTypes = [
+    'Headache',
+    'Nausea',
+    'Fatigue',
+    'Dizziness',
+    'Joint Pain',
+    'Chest Pain',
+    'Shortness of Breath',
+  ]
+
   return (
-    <Surface style={styles.screen}>
+    <Surface
+      style={[styles.screen, { backgroundColor: theme.colors.background }]}
+    >
       <ScrollView style={styles.scrollView}>
         {/* Quick Entry Form */}
-        <Card style={styles.card}>
-          <Card.Title title="Quick Health Check" />
+        <Card style={[styles.card, { elevation: 2 }]}>
+          <Card.Title
+            title="Quick Health Check"
+            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
+            subtitle="Record your daily measurements"
+          />
           <Card.Content>
-            <View style={styles.bpContainer}>
-              <TextInput
-                label="Systolic"
-                value={bloodPressure.systolic}
-                onChangeText={(text) =>
-                  setBloodPressure({ ...bloodPressure, systolic: text })
-                }
-                keyboardType="numeric"
-                style={styles.bpInput}
-              />
-              <Text style={styles.bpSeparator}>/</Text>
-              <TextInput
-                label="Diastolic"
-                value={bloodPressure.diastolic}
-                onChangeText={(text) =>
-                  setBloodPressure({ ...bloodPressure, diastolic: text })
-                }
-                keyboardType="numeric"
-                style={styles.bpInput}
-              />
-            </View>
+            <Card
+              style={[
+                styles.measurementCard,
+                { backgroundColor: theme.colors.surfaceVariant },
+              ]}
+            >
+              <Card.Content>
+                <Text
+                  variant="titleMedium"
+                  style={{
+                    marginBottom: 8,
+                    color: theme.colors.onSurfaceVariant,
+                  }}
+                >
+                  Blood Pressure (mmHg)
+                </Text>
+                <View style={styles.bpContainer}>
+                  <TextInput
+                    label="Systolic"
+                    value={bloodPressure.systolic}
+                    onChangeText={(text) =>
+                      setBloodPressure({ ...bloodPressure, systolic: text })
+                    }
+                    keyboardType="numeric"
+                    style={[
+                      styles.bpInput,
+                      { backgroundColor: theme.colors.surface },
+                    ]}
+                    mode="outlined"
+                  />
+                  <Text
+                    style={[
+                      styles.bpSeparator,
+                      { color: theme.colors.onSurfaceVariant },
+                    ]}
+                  >
+                    /
+                  </Text>
+                  <TextInput
+                    label="Diastolic"
+                    value={bloodPressure.diastolic}
+                    onChangeText={(text) =>
+                      setBloodPressure({ ...bloodPressure, diastolic: text })
+                    }
+                    keyboardType="numeric"
+                    style={[
+                      styles.bpInput,
+                      { backgroundColor: theme.colors.surface },
+                    ]}
+                    mode="outlined"
+                  />
+                </View>
+              </Card.Content>
+            </Card>
 
-            <TextInput
-              label="Weight (kg)"
-              value={weight}
-              onChangeText={setWeight}
-              keyboardType="numeric"
-              style={styles.input}
-            />
-
-            <TextInput
-              label="Blood Glucose (mg/dL)"
-              value={glucose}
-              onChangeText={setGlucose}
-              keyboardType="numeric"
-              style={styles.input}
-            />
+            <Card
+              style={[
+                styles.measurementCard,
+                { backgroundColor: theme.colors.surfaceVariant },
+              ]}
+            >
+              <Card.Content>
+                <Text
+                  variant="titleMedium"
+                  style={{
+                    marginBottom: 8,
+                    color: theme.colors.onSurfaceVariant,
+                  }}
+                >
+                  Weight & Glucose
+                </Text>
+                <View style={styles.measurementRow}>
+                  <TextInput
+                    label="Weight (kg)"
+                    value={weight}
+                    onChangeText={setWeight}
+                    keyboardType="numeric"
+                    style={[
+                      styles.input,
+                      { backgroundColor: theme.colors.surface },
+                    ]}
+                    mode="outlined"
+                  />
+                  <TextInput
+                    label="Glucose (mg/dL)"
+                    value={glucose}
+                    onChangeText={setGlucose}
+                    keyboardType="numeric"
+                    style={[
+                      styles.input,
+                      { backgroundColor: theme.colors.surface },
+                    ]}
+                    mode="outlined"
+                  />
+                </View>
+              </Card.Content>
+            </Card>
 
             <Button
               mode="contained"
               onPress={() => {}}
               style={styles.saveButton}
+              icon="content-save"
             >
               Save Measurements
             </Button>
@@ -118,26 +205,46 @@ const HealthMonitoringScreen = () => {
         </Card>
 
         {/* Trends */}
-        <Card style={styles.card}>
-          <Card.Title title="Health Trends" />
+        <Card style={[styles.card, { marginTop: 16 }]}>
+          <Card.Title
+            title="Health Trends"
+            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
+            right={(props) => (
+              <IconButton {...props} icon="download" onPress={() => {}} />
+            )}
+          />
           <Card.Content>
-            <SegmentedButtons
-              value={selectedTimeRange}
-              onValueChange={setSelectedTimeRange}
-              buttons={[
-                { value: 'week', label: 'Week' },
-                { value: 'month', label: 'Month' },
-                { value: 'year', label: 'Year' },
-              ]}
-              style={styles.timeRangeSelector}
-            />
+            <View style={styles.trendsHeader}>
+              <SegmentedButtons
+                value={selectedTimeRange}
+                onValueChange={setSelectedTimeRange}
+                buttons={[
+                  { value: 'week', label: 'Week' },
+                  { value: 'month', label: 'Month' },
+                  { value: 'year', label: 'Year' },
+                ]}
+                style={styles.timeRangeSelector}
+              />
+            </View>
 
-            {/* Mock Chart - In real app, use a charting library */}
-            <View style={styles.chartPlaceholder}>
-              <Text>Trend Visualization Chart</Text>
-              <Text style={styles.chartNote}>
-                (Using a charting library like react-native-chart-kit)
-              </Text>
+            <View
+              style={[
+                styles.chartContainer,
+                { backgroundColor: theme.colors.surfaceVariant },
+              ]}
+            >
+              <View style={styles.chartPlaceholder}>
+                <MaterialCommunityIcons
+                  name="chart-line-variant"
+                  size={48}
+                  color={theme.colors.primary}
+                />
+                <Text
+                  style={{ color: theme.colors.onSurfaceVariant, marginTop: 8 }}
+                >
+                  Health Metrics Visualization
+                </Text>
+              </View>
             </View>
 
             {/* Recent Readings */}
@@ -156,16 +263,24 @@ const HealthMonitoringScreen = () => {
         </Card>
 
         {/* Symptom Tracking */}
-        <Card style={styles.card}>
+        <Card style={[styles.card, { marginTop: 16 }]}>
           <Card.Title
             title="Symptom Tracking"
+            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
             right={(props) => (
-              <IconButton {...props} icon="plus" onPress={() => {}} />
+              <IconButton
+                {...props}
+                icon="plus"
+                onPress={() => setShowAddSymptom(true)}
+                style={{ backgroundColor: theme.colors.primaryContainer }}
+              />
             )}
           />
           <Card.Content>
             <View style={styles.painScale}>
-              <Text>Pain Level:</Text>
+              <Text variant="titleMedium" style={{ marginBottom: 8 }}>
+                Pain Level
+              </Text>
               <SegmentedButtons
                 value={painLevel}
                 onValueChange={setPainLevel}
@@ -180,32 +295,71 @@ const HealthMonitoringScreen = () => {
               />
             </View>
 
-            {/* Body Map Placeholder */}
-            <View style={styles.bodyMapPlaceholder}>
-              <Text>Body Map for Pain Location</Text>
-              <Text style={styles.bodyMapNote}>
-                (Interactive body map for selecting pain locations)
-              </Text>
+            <View
+              style={[
+                styles.bodyMapContainer,
+                { backgroundColor: theme.colors.surfaceVariant },
+              ]}
+            >
+              <View style={styles.bodyMapPlaceholder}>
+                <MaterialCommunityIcons
+                  name="human"
+                  size={48}
+                  color={theme.colors.primary}
+                />
+                <Text
+                  style={{ color: theme.colors.onSurfaceVariant, marginTop: 8 }}
+                >
+                  Tap to indicate pain location
+                </Text>
+              </View>
             </View>
 
-            {/* Recent Symptoms */}
-            <List.Section>
-              <List.Subheader>Recent Symptoms</List.Subheader>
+            <Divider style={{ marginVertical: 16 }} />
+
+            <Text variant="titleMedium" style={{ marginBottom: 8 }}>
+              Recent Symptoms
+            </Text>
+            <View style={styles.symptomsContainer}>
               {symptoms.map((symptom, index) => (
-                <List.Item
+                <Card
                   key={index}
-                  title={symptom.type}
-                  description={`Severity: ${symptom.severity}/10 - Duration: ${symptom.duration}`}
-                  left={(props) => <List.Icon {...props} icon="bandage" />}
-                />
+                  style={[
+                    styles.symptomCard,
+                    { backgroundColor: theme.colors.surfaceVariant },
+                  ]}
+                >
+                  <Card.Content>
+                    <View style={styles.symptomHeader}>
+                      <MaterialCommunityIcons
+                        name="bandage"
+                        size={24}
+                        color={theme.colors.primary}
+                      />
+                      <Text variant="titleMedium" style={{ marginLeft: 8 }}>
+                        {symptom.type}
+                      </Text>
+                    </View>
+                    <Text style={{ color: theme.colors.onSurfaceVariant }}>
+                      Severity: {symptom.severity}/10
+                    </Text>
+                    <Text style={{ color: theme.colors.onSurfaceVariant }}>
+                      Duration: {symptom.duration}
+                    </Text>
+                  </Card.Content>
+                </Card>
               ))}
-            </List.Section>
+            </View>
           </Card.Content>
         </Card>
 
         {/* Data Sharing Controls */}
-        <Card style={styles.card}>
-          <Card.Title title="Data Sharing" />
+        <Card style={[styles.card, { marginTop: 16, marginBottom: 24 }]}>
+          <Card.Title
+            title="Data Sharing"
+            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
+            subtitle="Share your health data with healthcare providers"
+          />
           <Card.Content>
             <List.Item
               title="Share with Dr. Smith"
@@ -224,11 +378,56 @@ const HealthMonitoringScreen = () => {
           </Card.Content>
         </Card>
       </ScrollView>
+
+      {/* Add Symptom Modal */}
+      <Portal>
+        <Modal
+          visible={showAddSymptom}
+          onDismiss={() => setShowAddSymptom(false)}
+          contentContainerStyle={[
+            styles.modal,
+            { backgroundColor: theme.colors.surface },
+          ]}
+        >
+          <Text variant="titleLarge" style={{ marginBottom: 16 }}>
+            Add New Symptom
+          </Text>
+          <View style={styles.symptomTypes}>
+            {symptomTypes.map((type) => (
+              <Chip
+                key={type}
+                selected={type === symptomType}
+                onPress={() => setSymptomType(type)}
+                style={{ margin: 4 }}
+              >
+                {type}
+              </Chip>
+            ))}
+          </View>
+          <Button
+            mode="contained"
+            onPress={() => setShowAddSymptom(false)}
+            style={{ marginTop: 16 }}
+          >
+            Add Symptom
+          </Button>
+        </Modal>
+      </Portal>
     </Surface>
   )
 }
 
 const styles = StyleSheet.create({
+  modal: {
+    padding: 20,
+    margin: 20,
+    borderRadius: 12,
+  },
+  symptomTypes: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 8,
+  },
   screen: {
     flex: 1,
   },
@@ -237,13 +436,16 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   card: {
+    marginHorizontal: 16,
+    borderRadius: 12,
+  },
+  measurementCard: {
     marginBottom: 16,
-    elevation: 2,
+    borderRadius: 8,
   },
   bpContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 16,
   },
   bpInput: {
     flex: 1,
@@ -252,22 +454,32 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginHorizontal: 8,
   },
+  measurementRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
   input: {
-    marginBottom: 16,
+    flex: 1,
   },
   saveButton: {
     marginTop: 8,
   },
+  trendsHeader: {
+    marginBottom: 16,
+  },
   timeRangeSelector: {
+    marginBottom: 16,
+  },
+  chartContainer: {
+    borderRadius: 12,
+    overflow: 'hidden',
     marginBottom: 16,
   },
   chartPlaceholder: {
     height: 200,
-    backgroundColor: '#f5f5f5',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 8,
-    marginBottom: 16,
   },
   chartNote: {
     fontSize: 12,
@@ -277,13 +489,26 @@ const styles = StyleSheet.create({
   painScale: {
     marginBottom: 16,
   },
+  bodyMapContainer: {
+    borderRadius: 12,
+    overflow: 'hidden',
+    marginTop: 16,
+  },
   bodyMapPlaceholder: {
     height: 200,
-    backgroundColor: '#f5f5f5',
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  symptomsContainer: {
+    gap: 12,
+  },
+  symptomCard: {
     borderRadius: 8,
-    marginVertical: 16,
+  },
+  symptomHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
   },
   bodyMapNote: {
     fontSize: 12,

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, StyleSheet } from 'react-native'
+import { ScrollView, View, StyleSheet, Dimensions } from 'react-native'
 import {
   Surface,
   Card,
@@ -7,11 +7,18 @@ import {
   Button,
   ProgressBar,
   IconButton,
+  useTheme,
+  Avatar,
+  Divider,
 } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 
+const { width } = Dimensions.get('window')
+const cardWidth = width * 0.44 // For grid layout
+
 const DashboardScreen = () => {
+  const theme = useTheme()
   // Mock data - in real app this would come from a backend/state management
   const medications = [
     { name: 'Aspirin', time: '8:00 AM', taken: false },
@@ -40,8 +47,83 @@ const DashboardScreen = () => {
   }
 
   return (
-    <Surface style={styles.screen}>
+    <Surface
+      style={[styles.screen, { backgroundColor: theme.colors.background }]}
+    >
       <ScrollView style={styles.scrollView}>
+        {/* Welcome Section */}
+        <View style={styles.welcomeSection}>
+          <View style={styles.welcomeHeader}>
+            <Avatar.Text
+              size={48}
+              label="JD"
+              style={{ backgroundColor: theme.colors.primary }}
+            />
+            <View style={styles.welcomeText}>
+              <Text variant="titleLarge">Welcome Back, John</Text>
+              <Text
+                variant="bodyMedium"
+                style={{ color: theme.colors.onSurfaceVariant }}
+              >
+                Let's check your health status
+              </Text>
+            </View>
+          </View>
+        </View>
+
+        {/* Quick Stats Grid */}
+        <View style={styles.statsGrid}>
+          <Card style={[styles.statsCard, { width: cardWidth }]}>
+            <Card.Content>
+              <View style={styles.statHeader}>
+                <MaterialCommunityIcons
+                  name="pill"
+                  size={24}
+                  color={theme.colors.primary}
+                />
+                <Text variant="titleMedium">Medications</Text>
+              </View>
+              <Text
+                variant="displaySmall"
+                style={{ color: theme.colors.primary }}
+              >
+                50%
+              </Text>
+              <Text
+                variant="bodyMedium"
+                style={{ color: theme.colors.onSurfaceVariant }}
+              >
+                Taken today
+              </Text>
+            </Card.Content>
+          </Card>
+
+          <Card style={[styles.statsCard, { width: cardWidth }]}>
+            <Card.Content>
+              <View style={styles.statHeader}>
+                <MaterialCommunityIcons
+                  name="calendar-check"
+                  size={24}
+                  color={theme.colors.secondary}
+                />
+                <Text variant="titleMedium">Appointments</Text>
+              </View>
+              <Text
+                variant="displaySmall"
+                style={{ color: theme.colors.secondary }}
+              >
+                2
+              </Text>
+              <Text
+                variant="bodyMedium"
+                style={{ color: theme.colors.onSurfaceVariant }}
+              >
+                This week
+              </Text>
+            </Card.Content>
+          </Card>
+        </View>
+
         {/* Medication Summary Widget */}
         <Card style={styles.card}>
           <Card.Title
@@ -54,9 +136,19 @@ const DashboardScreen = () => {
               />
             )}
           />
-          <Card.Content>
-            <ProgressBar progress={0.5} style={styles.progressBar} />
-            <Text style={styles.subText}>50% completed today</Text>
+          <Card.Content style={styles.medicationContent}>
+            <ProgressBar
+              progress={0.5}
+              style={[
+                styles.progressBar,
+                { backgroundColor: theme.colors.surfaceVariant },
+              ]}
+              color={theme.colors.primary}
+            />
+            <Text style={[styles.subText, { color: theme.colors.primary }]}>
+              50% completed today
+            </Text>
+            <Divider style={styles.divider} />
             {medications.map((med, index) => (
               <View key={index} style={styles.medicationItem}>
                 <Text>
@@ -103,12 +195,43 @@ const DashboardScreen = () => {
 
         {/* Health Metrics Widget */}
         <Card style={styles.card}>
-          <Card.Title title="Health Metrics" />
+          <Card.Title
+            title="Health Metrics"
+            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
+            right={(props) => (
+              <IconButton
+                {...props}
+                icon="chart-line"
+                onPress={() => router.push('/health-monitoring')}
+              />
+            )}
+          />
           <Card.Content>
-            <View style={styles.metricsGrid}>
+            <View
+              style={[
+                styles.metricsGrid,
+                {
+                  backgroundColor: theme.colors.surfaceVariant,
+                  borderRadius: 12,
+                  padding: 16,
+                },
+              ]}
+            >
               <View style={styles.metricItem}>
-                <Text style={styles.metricLabel}>Blood Pressure</Text>
-                <Text style={styles.metricValue}>
+                <Text
+                  style={[
+                    styles.metricLabel,
+                    { color: theme.colors.onSurfaceVariant },
+                  ]}
+                >
+                  Blood Pressure
+                </Text>
+                <Text
+                  style={[
+                    styles.metricValue,
+                    { color: theme.colors.onSurface },
+                  ]}
+                >
                   {healthMetrics.bloodPressure}
                 </Text>
                 <View style={styles.trendContainer}>
@@ -155,20 +278,50 @@ const DashboardScreen = () => {
         </Card>
 
         {/* Emergency Contact Button */}
-        <Button
-          mode="contained"
-          style={styles.emergencyButton}
-          icon="phone"
-          onPress={() => {}}
-        >
-          Emergency Contact
-        </Button>
+        <View style={styles.emergencyContainer}>
+          <Button
+            mode="contained"
+            style={styles.emergencyButton}
+            icon="phone"
+            buttonColor={theme.colors.error}
+            onPress={() => router.push('/emergency')}
+          >
+            Emergency Contact
+          </Button>
+        </View>
       </ScrollView>
     </Surface>
   )
 }
 
 const styles = StyleSheet.create({
+  welcomeSection: {
+    paddingVertical: 16,
+  },
+  welcomeHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+  },
+  welcomeText: {
+    marginLeft: 16,
+  },
+  statsGrid: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingHorizontal: 5,
+    gap: 16,
+    paddingVertical: 12,
+  },
+  statsCard: {
+    elevation: 2,
+  },
+  statHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+    gap: 8,
+  },
   screen: {
     flex: 1,
   },
@@ -177,16 +330,23 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   card: {
-    marginBottom: 16,
+    marginHorizontal: 16,
+    marginVertical: 12,
     elevation: 2,
+    borderRadius: 12,
+  },
+  medicationContent: {
+    paddingVertical: 16,
   },
   progressBar: {
     marginVertical: 8,
+    height: 8,
+    borderRadius: 4,
   },
   subText: {
-    fontSize: 12,
+    fontSize: 14,
     marginBottom: 8,
-    color: '#666',
+    fontWeight: '500',
   },
   medicationItem: {
     flexDirection: 'row',
@@ -208,10 +368,17 @@ const styles = StyleSheet.create({
   viewAllButton: {
     marginTop: 8,
   },
+  divider: {
+    marginVertical: 12,
+  },
   metricsGrid: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     flexWrap: 'wrap',
+  },
+  emergencyContainer: {
+    paddingHorizontal: 16,
+    paddingVertical: 24,
   },
   metricItem: {
     width: '30%',
@@ -229,8 +396,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   emergencyButton: {
-    marginVertical: 16,
-    backgroundColor: '#ff4444',
+    borderRadius: 8,
+    paddingVertical: 8,
   },
   trendContainer: {
     flexDirection: 'row',

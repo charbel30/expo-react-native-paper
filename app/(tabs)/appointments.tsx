@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, StyleSheet } from 'react-native'
+import { ScrollView, View, StyleSheet, Dimensions } from 'react-native'
 import {
   Surface,
   Card,
@@ -9,15 +9,24 @@ import {
   IconButton,
   Searchbar,
   Chip,
+  useTheme,
+  Avatar,
+  Divider,
+  Portal,
+  Modal,
 } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
+const { width } = Dimensions.get('window')
+
 const AppointmentsScreen = () => {
+  const theme = useTheme()
   const [searchQuery, setSearchQuery] = React.useState('')
   const [selectedDate, setSelectedDate] = React.useState(new Date())
   const [selectedTimeSlot, setSelectedTimeSlot] = React.useState<string | null>(
     null,
   )
+  const [showBookingModal, setShowBookingModal] = React.useState(false)
 
   // Mock data - in real app this would come from backend/state management
   const appointments = [
@@ -79,154 +88,315 @@ const AppointmentsScreen = () => {
   const calendarDays = generateCalendarDays()
 
   return (
-    <Surface style={styles.screen}>
+    <Surface
+      style={[styles.screen, { backgroundColor: theme.colors.background }]}
+    >
       <ScrollView style={styles.scrollView}>
         {/* Calendar View */}
-        <Card style={styles.card}>
-          <Card.Title title="Schedule" />
+        <Card style={[styles.card, { elevation: 2 }]}>
+          <Card.Title
+            title="Schedule"
+            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
+            subtitle={selectedDate.toLocaleDateString('en-US', {
+              month: 'long',
+              year: 'numeric',
+            })}
+          />
           <Card.Content>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={styles.calendarStrip}>
-                {calendarDays.map((date, index) => (
-                  <Button
-                    key={index}
-                    mode={
+            <View style={styles.calendarContainer}>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <View style={styles.calendarStrip}>
+                  {calendarDays.map((date, index) => {
+                    const isSelected =
                       date.toDateString() === selectedDate.toDateString()
-                        ? 'contained'
-                        : 'outlined'
-                    }
-                    style={styles.dateButton}
-                    onPress={() => setSelectedDate(date)}
-                  >
-                    <Text style={styles.dayName}>
-                      {date.toLocaleDateString('en-US', { weekday: 'short' })}
-                    </Text>
-                    <Text style={styles.dayNumber}>{date.getDate()}</Text>
-                  </Button>
-                ))}
-              </View>
-            </ScrollView>
+                    return (
+                      <Button
+                        key={index}
+                        mode={isSelected ? 'contained' : 'outlined'}
+                        style={[
+                          styles.dateButton,
+                          isSelected && {
+                            backgroundColor: theme.colors.primary,
+                          },
+                        ]}
+                        labelStyle={
+                          isSelected ? { color: theme.colors.onPrimary } : {}
+                        }
+                        onPress={() => setSelectedDate(date)}
+                      >
+                        <Text
+                          style={[
+                            styles.dayName,
+                            isSelected && { color: theme.colors.onPrimary },
+                          ]}
+                        >
+                          {date.toLocaleDateString('en-US', {
+                            weekday: 'short',
+                          })}
+                        </Text>
+                        <Text
+                          style={[
+                            styles.dayNumber,
+                            isSelected && { color: theme.colors.onPrimary },
+                          ]}
+                        >
+                          {date.getDate()}
+                        </Text>
+                      </Button>
+                    )
+                  })}
+                </View>
+              </ScrollView>
+            </View>
           </Card.Content>
         </Card>
 
         {/* Upcoming Appointments */}
-        <Card style={styles.card}>
-          <Card.Title title="Upcoming Appointments" />
+        <Card style={[styles.card, { marginTop: 16 }]}>
+          <Card.Title
+            title="Upcoming Appointments"
+            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
+            right={(props) => (
+              <IconButton {...props} icon="calendar-sync" onPress={() => {}} />
+            )}
+          />
           <Card.Content>
             {appointments.map((apt, index) => (
-              <List.Item
+              <Card
                 key={index}
-                title={apt.doctor}
-                description={`${apt.specialty}\n${apt.date} at ${apt.time}`}
-                left={(props) => (
-                  <MaterialCommunityIcons
-                    name="calendar-clock"
-                    size={24}
-                    color="#666"
-                  />
-                )}
-                right={(props) => (
-                  <View style={styles.appointmentActions}>
-                    <IconButton icon="phone" onPress={() => {}} />
-                    <IconButton icon="email" onPress={() => {}} />
+                style={[
+                  styles.appointmentCard,
+                  { backgroundColor: theme.colors.surfaceVariant },
+                ]}
+              >
+                <Card.Content>
+                  <View style={styles.appointmentHeader}>
+                    <Avatar.Icon
+                      size={40}
+                      icon="doctor"
+                      style={{ backgroundColor: theme.colors.primary }}
+                    />
+                    <View style={styles.appointmentInfo}>
+                      <Text variant="titleMedium">{apt.doctor}</Text>
+                      <Text
+                        variant="bodyMedium"
+                        style={{ color: theme.colors.onSurfaceVariant }}
+                      >
+                        {apt.specialty}
+                      </Text>
+                    </View>
                   </View>
-                )}
-              />
+                  <Divider style={{ marginVertical: 12 }} />
+                  <View style={styles.appointmentDetails}>
+                    <View style={styles.detailItem}>
+                      <MaterialCommunityIcons
+                        name="calendar"
+                        size={20}
+                        color={theme.colors.primary}
+                      />
+                      <Text style={{ marginLeft: 8 }}>{apt.date}</Text>
+                    </View>
+                    <View style={styles.detailItem}>
+                      <MaterialCommunityIcons
+                        name="clock"
+                        size={20}
+                        color={theme.colors.primary}
+                      />
+                      <Text style={{ marginLeft: 8 }}>{apt.time}</Text>
+                    </View>
+                    <View style={styles.detailItem}>
+                      <MaterialCommunityIcons
+                        name="map-marker"
+                        size={20}
+                        color={theme.colors.primary}
+                      />
+                      <Text style={{ marginLeft: 8 }}>{apt.location}</Text>
+                    </View>
+                  </View>
+                  <View style={styles.actionContainer}>
+                    <Button
+                      mode="outlined"
+                      icon="phone"
+                      onPress={() => {}}
+                      style={styles.actionButton}
+                    >
+                      Call
+                    </Button>
+                    <Button
+                      mode="outlined"
+                      icon="email"
+                      onPress={() => {}}
+                      style={styles.actionButton}
+                    >
+                      Email
+                    </Button>
+                    <Button
+                      mode="outlined"
+                      icon="calendar"
+                      onPress={() => {}}
+                      style={styles.actionButton}
+                    >
+                      Sync
+                    </Button>
+                  </View>
+                </Card.Content>
+              </Card>
             ))}
           </Card.Content>
         </Card>
 
         {/* Book New Appointment */}
-        <Card style={styles.card}>
-          <Card.Title title="Book New Appointment" />
+        <Card style={[styles.card, { marginTop: 16 }]}>
+          <Card.Title
+            title="Book New Appointment"
+            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
+            subtitle="Find and schedule your next visit"
+          />
           <Card.Content>
-            <Searchbar
-              placeholder="Search for doctors or specialties"
-              onChangeText={setSearchQuery}
-              value={searchQuery}
-              style={styles.searchBar}
-            />
-
-            <Text style={styles.sectionTitle}>Available Time Slots</Text>
-            <View style={styles.timeSlots}>
-              {timeSlots.map((time, index) => (
-                <Chip
-                  key={index}
-                  selected={selectedTimeSlot === time}
-                  onPress={() => setSelectedTimeSlot(time)}
-                  style={styles.timeSlot}
-                >
-                  {time}
-                </Chip>
-              ))}
-            </View>
-
-            <Button
-              mode="contained"
-              onPress={() => {}}
-              style={styles.bookButton}
-              disabled={!selectedTimeSlot}
+            <Card
+              style={[
+                styles.searchCard,
+                { backgroundColor: theme.colors.surfaceVariant },
+              ]}
             >
-              Book Appointment
-            </Button>
+              <Card.Content>
+                <Searchbar
+                  placeholder="Search for doctors or specialties"
+                  onChangeText={setSearchQuery}
+                  value={searchQuery}
+                  style={[
+                    styles.searchBar,
+                    { backgroundColor: theme.colors.surface },
+                  ]}
+                  icon="magnify"
+                  iconColor={theme.colors.primary}
+                />
+
+                <View style={styles.specialtiesContainer}>
+                  <Chip
+                    selected
+                    onPress={() => {}}
+                    style={styles.specialtyChip}
+                    icon="heart-pulse"
+                  >
+                    Cardiology
+                  </Chip>
+                  <Chip
+                    onPress={() => {}}
+                    style={styles.specialtyChip}
+                    icon="brain"
+                  >
+                    Neurology
+                  </Chip>
+                  <Chip
+                    onPress={() => {}}
+                    style={styles.specialtyChip}
+                    icon="bone"
+                  >
+                    Orthopedics
+                  </Chip>
+                </View>
+
+                <Button
+                  mode="contained"
+                  onPress={() => setShowBookingModal(true)}
+                  style={styles.bookButton}
+                  icon="calendar-plus"
+                >
+                  Book New Appointment
+                </Button>
+              </Card.Content>
+            </Card>
           </Card.Content>
         </Card>
 
-        {/* Appointment Details */}
-        {appointments.map((apt, index) => (
-          <Card key={index} style={styles.card}>
-            <Card.Title
-              title="Appointment Details"
-              right={(props) => (
-                <IconButton {...props} icon="pencil" onPress={() => {}} />
+        {/* Instructions Card */}
+        <Card style={[styles.card, { marginTop: 16, marginBottom: 24 }]}>
+          <Card.Title
+            title="Appointment Guidelines"
+            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
+          />
+          <Card.Content>
+            <List.Item
+              title="Arrive 15 minutes early"
+              left={(props) => (
+                <List.Icon
+                  {...props}
+                  icon="clock-fast"
+                  color={theme.colors.primary}
+                />
               )}
             />
-            <Card.Content>
-              <List.Item
-                title="Location"
-                description={apt.location}
-                left={(props) => <List.Icon {...props} icon="map-marker" />}
-              />
-              <List.Item
-                title="Instructions"
-                description={apt.instructions}
-                left={(props) => <List.Icon {...props} icon="information" />}
-              />
-              <View style={styles.contactButtons}>
-                <Button
-                  mode="outlined"
-                  icon="phone"
-                  onPress={() => {}}
-                  style={styles.contactButton}
-                >
-                  Call
-                </Button>
-                <Button
-                  mode="outlined"
-                  icon="email"
-                  onPress={() => {}}
-                  style={styles.contactButton}
-                >
-                  Email
-                </Button>
-                <Button
-                  mode="outlined"
-                  icon="calendar"
-                  onPress={() => {}}
-                  style={styles.contactButton}
-                >
-                  Add to Calendar
-                </Button>
-              </View>
-            </Card.Content>
-          </Card>
-        ))}
+            <List.Item
+              title="Bring your insurance card"
+              left={(props) => (
+                <List.Icon
+                  {...props}
+                  icon="card-account-details"
+                  color={theme.colors.primary}
+                />
+              )}
+            />
+            <List.Item
+              title="Wear a face mask"
+              left={(props) => (
+                <List.Icon
+                  {...props}
+                  icon="face-mask"
+                  color={theme.colors.primary}
+                />
+              )}
+            />
+          </Card.Content>
+        </Card>
       </ScrollView>
+
+      {/* Booking Modal */}
+      <Portal>
+        <Modal
+          visible={showBookingModal}
+          onDismiss={() => setShowBookingModal(false)}
+          contentContainerStyle={[
+            styles.modal,
+            { backgroundColor: theme.colors.surface },
+          ]}
+        >
+          <Text variant="titleLarge" style={{ marginBottom: 16 }}>
+            Select Time Slot
+          </Text>
+          <View style={styles.timeSlots}>
+            {timeSlots.map((time, index) => (
+              <Chip
+                key={index}
+                selected={selectedTimeSlot === time}
+                onPress={() => setSelectedTimeSlot(time)}
+                style={styles.timeSlot}
+                showSelectedCheck
+              >
+                {time}
+              </Chip>
+            ))}
+          </View>
+          <Button
+            mode="contained"
+            onPress={() => setShowBookingModal(false)}
+            style={{ marginTop: 16 }}
+            disabled={!selectedTimeSlot}
+          >
+            Confirm Booking
+          </Button>
+        </Modal>
+      </Portal>
     </Surface>
   )
 }
 
 const styles = StyleSheet.create({
+  modal: {
+    padding: 20,
+    margin: 20,
+    borderRadius: 12,
+  },
   screen: {
     flex: 1,
   },
@@ -235,16 +405,21 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   card: {
-    marginBottom: 16,
-    elevation: 2,
+    marginHorizontal: 16,
+    borderRadius: 12,
+  },
+  calendarContainer: {
+    marginVertical: 8,
   },
   calendarStrip: {
     flexDirection: 'row',
     paddingVertical: 8,
+    paddingHorizontal: 4,
   },
   dateButton: {
-    marginRight: 8,
+    marginHorizontal: 4,
     paddingHorizontal: 12,
+    borderRadius: 8,
   },
   dayName: {
     fontSize: 12,
@@ -253,36 +428,62 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  appointmentActions: {
-    flexDirection: 'row',
-  },
-  searchBar: {
+  searchCard: {
+    borderRadius: 8,
     marginBottom: 16,
   },
-  sectionTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
+  searchBar: {
+    elevation: 0,
+    borderRadius: 8,
+    marginBottom: 16,
+  },
+  specialtiesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginBottom: 16,
+  },
+  specialtyChip: {
     marginBottom: 8,
+  },
+  appointmentCard: {
+    marginBottom: 12,
+    borderRadius: 8,
+  },
+  appointmentHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  appointmentInfo: {
+    marginLeft: 12,
+    flex: 1,
+  },
+  appointmentDetails: {
+    gap: 8,
+  },
+  detailItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   timeSlots: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    marginBottom: 16,
+    gap: 8,
   },
   timeSlot: {
-    margin: 4,
+    marginBottom: 8,
   },
   bookButton: {
     marginTop: 8,
   },
-  contactButtons: {
+  actionContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 16,
+    gap: 8,
   },
-  contactButton: {
+  actionButton: {
     flex: 1,
-    marginHorizontal: 4,
   },
 })
 

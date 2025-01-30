@@ -1,6 +1,6 @@
 /**
  * Health Companion App Color System
- * 
+ *
  * A professional and calming color palette designed for healthcare applications
  * with focus on accessibility and user trust.
  */
@@ -15,37 +15,37 @@ const Colors = {
       onPrimary: '#FFFFFF',
       primaryContainer: '#E6F3FF',
       onPrimaryContainer: '#004C8A',
-      
+
       // Soft green - healing and growth
       secondary: '#4CAF50',
       onSecondary: '#FFFFFF',
       secondaryContainer: '#E8F5E9',
       onSecondaryContainer: '#1B5E20',
-      
+
       // Calm purple - comfort and care
       tertiary: '#7E57C2',
       onTertiary: '#FFFFFF',
       tertiaryContainer: '#F3E5F5',
       onTertiaryContainer: '#4A148C',
-      
+
       // Alert colors
       error: '#D32F2F',
       onError: '#FFFFFF',
       errorContainer: '#FFEBEE',
       onErrorContainer: '#B71C1C',
-      
+
       // Warning for medication alerts
       warning: '#FFA000',
       onWarning: '#FFFFFF',
       warningContainer: '#FFF3E0',
       onWarningContainer: '#E65100',
-      
+
       // Success for completed tasks
       success: '#388E3C',
       onSuccess: '#FFFFFF',
       successContainer: '#E8F5E9',
       onSuccessContainer: '#1B5E20',
-      
+
       // Neutral backgrounds
       background: '#FFFFFF',
       onBackground: '#1A1A1A',
@@ -53,18 +53,18 @@ const Colors = {
       onSurface: '#1A1A1A',
       surfaceVariant: '#F5F5F5',
       onSurfaceVariant: '#757575',
-      
+
       // System elements
       outline: '#BDBDBD',
       outlineVariant: '#E0E0E0',
       shadow: 'rgba(0, 0, 0, 0.1)',
       scrim: 'rgba(0, 0, 0, 0.3)',
-      
+
       // Inverse colors for special components
       inverseSurface: '#1A1A1A',
       inverseOnSurface: '#FFFFFF',
       inversePrimary: '#90CAF9',
-      
+
       // Elevation levels for depth
       elevation: {
         level0: 'transparent',
@@ -74,7 +74,7 @@ const Colors = {
         level4: '#F3F3F3',
         level5: '#F0F0F0',
       },
-      
+
       // Disabled states
       surfaceDisabled: 'rgba(26, 26, 26, 0.12)',
       onSurfaceDisabled: 'rgba(26, 26, 26, 0.38)',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, View, StyleSheet, Linking } from 'react-native'
+import { ScrollView, View, StyleSheet, Linking, Dimensions } from 'react-native'
 import {
   Surface,
   Card,
@@ -9,10 +9,16 @@ import {
   IconButton,
   Portal,
   Dialog,
+  useTheme,
+  Avatar,
+  Divider,
 } from 'react-native-paper'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 
+const { width } = Dimensions.get('window')
+
 const EmergencyScreen = () => {
+  const theme = useTheme()
   const [confirmDialogVisible, setConfirmDialogVisible] = React.useState(false)
   const [selectedContact, setSelectedContact] = React.useState<null | {
     name: string
@@ -93,105 +99,234 @@ const EmergencyScreen = () => {
   }
 
   return (
-    <Surface style={styles.screen}>
+    <Surface
+      style={[styles.screen, { backgroundColor: theme.colors.background }]}
+    >
       <ScrollView style={styles.scrollView}>
         {/* Quick Emergency Actions */}
-        <Card style={[styles.card, styles.emergencyCard]}>
-          <Card.Title
-            title="Emergency Services"
-            titleStyle={styles.emergencyTitle}
-          />
-          <Card.Content>
-            <Button
-              mode="contained"
-              icon="phone"
-              style={styles.emergencyButton}
-              labelStyle={styles.emergencyButtonLabel}
-              onPress={() => handleCallPress(emergencyContacts[0])}
-            >
-              Call 911
-            </Button>
+        <Card
+          style={[
+            styles.card,
+            { backgroundColor: theme.colors.error, elevation: 4 },
+          ]}
+        >
+          <Card.Content style={styles.emergencyContent}>
+            <View style={styles.emergencyHeader}>
+              <MaterialCommunityIcons
+                name="phone-alert"
+                size={40}
+                color="white"
+              />
+              <View style={styles.emergencyTitleContainer}>
+                <Text
+                  variant="headlineSmall"
+                  style={{ color: 'white', fontWeight: 'bold' }}
+                >
+                  Emergency Services
+                </Text>
+                <Text style={{ color: 'white', opacity: 0.9 }}>
+                  Get immediate medical assistance
+                </Text>
+              </View>
+            </View>
+            <View style={styles.emergencyActions}>
+              <Button
+                mode="contained"
+                icon="phone"
+                style={[styles.emergencyButton, { backgroundColor: 'white' }]}
+                labelStyle={[
+                  styles.emergencyButtonLabel,
+                  { color: theme.colors.error },
+                ]}
+                onPress={() => handleCallPress(emergencyContacts[0])}
+              >
+                Call 911
+              </Button>
+              <Button
+                mode="contained"
+                icon="map-marker"
+                style={[
+                  styles.emergencyButton,
+                  { backgroundColor: 'white', marginTop: 8 },
+                ]}
+                labelStyle={[
+                  styles.emergencyButtonLabel,
+                  { color: theme.colors.error },
+                ]}
+                onPress={() => {}}
+              >
+                Share Location
+              </Button>
+            </View>
           </Card.Content>
         </Card>
 
         {/* Emergency Contacts */}
-        <Card style={styles.card}>
-          <Card.Title title="Emergency Contacts" />
+        <Card style={[styles.card, { marginTop: 16 }]}>
+          <Card.Title
+            title="Emergency Contacts"
+            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
+            subtitle="Quick access to your healthcare providers"
+          />
           <Card.Content>
             {emergencyContacts.slice(1).map((contact, index) => (
-              <List.Item
+              <Card
                 key={index}
-                title={contact.name}
-                description={contact.number}
-                left={(props) => (
-                  <List.Icon
-                    {...props}
-                    icon={
-                      contact.type === 'doctor'
-                        ? 'doctor'
-                        : contact.type === 'caregiver'
-                          ? 'account-heart'
-                          : 'phone'
-                    }
-                  />
-                )}
-                right={(props) => (
-                  <IconButton
-                    {...props}
-                    icon="phone"
-                    onPress={() => handleCallPress(contact)}
-                  />
-                )}
-              />
+                style={[
+                  styles.contactCard,
+                  { backgroundColor: theme.colors.surfaceVariant },
+                ]}
+              >
+                <Card.Content>
+                  <View style={styles.contactHeader}>
+                    <Avatar.Icon
+                      size={40}
+                      icon={
+                        contact.type === 'doctor'
+                          ? 'doctor'
+                          : contact.type === 'caregiver'
+                            ? 'account-heart'
+                            : 'phone'
+                      }
+                      style={{ backgroundColor: theme.colors.primary }}
+                    />
+                    <View style={styles.contactInfo}>
+                      <Text variant="titleMedium">{contact.name}</Text>
+                      <Text
+                        variant="bodyMedium"
+                        style={{ color: theme.colors.onSurfaceVariant }}
+                      >
+                        {contact.number}
+                      </Text>
+                    </View>
+                    <IconButton
+                      icon="phone"
+                      mode="contained"
+                      containerColor={theme.colors.primaryContainer}
+                      iconColor={theme.colors.primary}
+                      onPress={() => handleCallPress(contact)}
+                    />
+                  </View>
+                </Card.Content>
+              </Card>
             ))}
           </Card.Content>
         </Card>
 
         {/* Emergency Protocols */}
-        {emergencyProtocols.map((protocol, index) => (
-          <Card key={index} style={styles.card}>
-            <Card.Title
-              title={protocol.condition}
+        <Card style={[styles.card, { marginTop: 16 }]}>
+          <Card.Title
+            title="Emergency Protocols"
+            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
+            subtitle="Step-by-step emergency guidelines"
+          />
+          <Card.Content>
+            {emergencyProtocols.map((protocol, index) => (
+              <Card
+                key={index}
+                style={[
+                  styles.protocolCard,
+                  { backgroundColor: theme.colors.surfaceVariant },
+                ]}
+              >
+                <Card.Title
+                  title={protocol.condition}
+                  titleStyle={{ color: theme.colors.onSurface }}
+                  left={(props) => (
+                    <Avatar.Icon
+                      {...props}
+                      icon={protocol.icon}
+                      size={40}
+                      style={{ backgroundColor: theme.colors.errorContainer }}
+                      color={theme.colors.error}
+                    />
+                  )}
+                />
+                <Divider style={{ marginVertical: 8 }} />
+                <Card.Content>
+                  <View style={styles.stepsList}>
+                    {protocol.steps.map((step, stepIndex) => (
+                      <View key={stepIndex} style={styles.stepItem}>
+                        <View
+                          style={[
+                            styles.stepNumber,
+                            { backgroundColor: theme.colors.error },
+                          ]}
+                        >
+                          <Text style={{ color: 'white', fontWeight: 'bold' }}>
+                            {stepIndex + 1}
+                          </Text>
+                        </View>
+                        <Text
+                          style={[
+                            styles.stepText,
+                            { color: theme.colors.onSurface },
+                          ]}
+                        >
+                          {step}
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
+                </Card.Content>
+              </Card>
+            ))}
+          </Card.Content>
+        </Card>
+
+        {/* Additional Resources */}
+        <Card style={[styles.card, { marginTop: 16, marginBottom: 24 }]}>
+          <Card.Title
+            title="Additional Resources"
+            titleStyle={{ fontSize: 20, fontWeight: 'bold' }}
+          />
+          <Card.Content>
+            <List.Item
+              title="Nearest Hospital"
+              description="City General Hospital - 1.2 miles"
               left={(props) => (
-                <MaterialCommunityIcons
+                <List.Icon
                   {...props}
-                  name={protocol.icon}
-                  size={24}
-                  color="#FF5252"
+                  icon="hospital-building"
+                  color={theme.colors.primary}
+                />
+              )}
+              right={(props) => (
+                <IconButton {...props} icon="directions" onPress={() => {}} />
+              )}
+            />
+            <List.Item
+              title="Poison Control"
+              description="1-800-222-1222"
+              left={(props) => (
+                <List.Icon
+                  {...props}
+                  icon="alert-circle"
+                  color={theme.colors.error}
+                />
+              )}
+              right={(props) => (
+                <IconButton {...props} icon="phone" onPress={() => {}} />
+              )}
+            />
+            <List.Item
+              title="Medical ID"
+              description="View your medical information"
+              left={(props) => (
+                <List.Icon
+                  {...props}
+                  icon="card-account-details-outline"
+                  color={theme.colors.primary}
+                />
+              )}
+              right={(props) => (
+                <IconButton
+                  {...props}
+                  icon="chevron-right"
+                  onPress={() => {}}
                 />
               )}
             />
-            <Card.Content>
-              <List.Section>
-                {protocol.steps.map((step, stepIndex) => (
-                  <List.Item
-                    key={stepIndex}
-                    title={step}
-                    left={(props) => (
-                      <Text style={styles.stepNumber}>{stepIndex + 1}</Text>
-                    )}
-                  />
-                ))}
-              </List.Section>
-            </Card.Content>
-          </Card>
-        ))}
-
-        {/* Location Sharing */}
-        <Card style={styles.card}>
-          <Card.Title title="Location Sharing" />
-          <Card.Content>
-            <Button
-              mode="outlined"
-              icon="map-marker"
-              onPress={() => {}}
-              style={styles.locationButton}
-            >
-              Share Current Location
-            </Button>
-            <Text style={styles.locationNote}>
-              Your location will be shared with emergency contacts
-            </Text>
           </Card.Content>
         </Card>
       </ScrollView>
@@ -219,6 +354,20 @@ const EmergencyScreen = () => {
 }
 
 const styles = StyleSheet.create({
+  emergencyContent: {
+    padding: 16,
+  },
+  emergencyHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  emergencyTitleContainer: {
+    marginLeft: 16,
+  },
+  emergencyActions: {
+    marginTop: 8,
+  },
   screen: {
     flex: 1,
   },
@@ -227,32 +376,51 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   card: {
-    marginBottom: 16,
-    elevation: 2,
-  },
-  emergencyCard: {
-    backgroundColor: '#FF5252',
-  },
-  emergencyTitle: {
-    color: 'white',
+    marginHorizontal: 16,
+    borderRadius: 12,
   },
   emergencyButton: {
-    backgroundColor: 'white',
+    borderRadius: 8,
+    elevation: 2,
   },
   emergencyButtonLabel: {
-    color: '#FF5252',
     fontSize: 18,
     fontWeight: 'bold',
   },
+  contactCard: {
+    marginBottom: 8,
+    borderRadius: 8,
+  },
+  contactHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  contactInfo: {
+    flex: 1,
+    marginLeft: 12,
+  },
+  protocolCard: {
+    marginBottom: 12,
+    borderRadius: 8,
+  },
+  stepsList: {
+    gap: 12,
+  },
+  stepItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   stepNumber: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
-    backgroundColor: '#FF5252',
-    color: 'white',
-    textAlign: 'center',
-    lineHeight: 24,
-    marginRight: 8,
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  stepText: {
+    flex: 1,
+    fontSize: 16,
   },
   locationButton: {
     marginVertical: 8,

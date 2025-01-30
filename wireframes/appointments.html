@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health App Wireframes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .phone-frame {
+            width: 360px;
+            height: 640px;
+            background: white;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+        .card {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .calendar-strip {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+            margin-bottom: 15px;
+        }
+        .date-box {
+            min-width: 60px;
+            height: 70px;
+            margin-right: 10px;
+            background: #ddd;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .date-box.selected {
+            background: #666;
+            color: white;
+        }
+        .appointment-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .doctor-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .doctor-avatar {
+            width: 40px;
+            height: 40px;
+            background: #ddd;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+        .search-bar {
+            background: white;
+            padding: 10px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+        }
+        .specialty-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .chip {
+            background: #ddd;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 14px;
+        }
+        .chip.selected {
+            background: #666;
+            color: white;
+        }
+        .action-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .action-button {
+            flex: 1;
+            padding: 8px;
+            background: #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .screen-title {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="screen-title">Appointments Screen</h1>
+    <div class="phone-frame">
+        <!-- Calendar Strip -->
+        <div class="card">
+            <h3>Schedule</h3>
+            <div class="calendar-strip">
+                <div class="date-box">
+                    <div>Mon</div>
+                    <div style="font-size: 20px;">15</div>
+                </div>
+                <div class="date-box selected">
+                    <div>Tue</div>
+                    <div style="font-size: 20px;">16</div>
+                </div>
+                <div class="date-box">
+                    <div>Wed</div>
+                    <div style="font-size: 20px;">17</div>
+                </div>
+                <div class="date-box">
+                    <div>Thu</div>
+                    <div style="font-size: 20px;">18</div>
+                </div>
+                <div class="date-box">
+                    <div>Fri</div>
+                    <div style="font-size: 20px;">19</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming Appointments -->
+        <div class="card">
+            <h3>Upcoming Appointments</h3>
+            <div class="appointment-card">
+                <div class="doctor-info">
+                    <div class="doctor-avatar"></div>
+                    <div>
+                        <div>Dr. Smith</div>
+                        <div style="color: #666;">Cardiologist</div>
+                    </div>
+                </div>
+                <div style="color: #666;">Feb 1, 10:00 AM</div>
+                <div style="color: #666;">Heart Care Center</div>
+                <div class="action-row">
+                    <div class="action-button">Call</div>
+                    <div class="action-button">Email</div>
+                    <div class="action-button">Sync</div>
+                </div>
+            </div>
+            <div class="appointment-card">
+                <div class="doctor-info">
+                    <div class="doctor-avatar"></div>
+                    <div>
+                        <div>Dr. Johnson</div>
+                        <div style="color: #666;">Primary Care</div>
+                    </div>
+                </div>
+                <div style="color: #666;">Feb 15, 2:30 PM</div>
+                <div style="color: #666;">Family Health Clinic</div>
+                <div class="action-row">
+                    <div class="action-button">Call</div>
+                    <div class="action-button">Email</div>
+                    <div class="action-button">Sync</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book New Appointment -->
+        <div class="card">
+            <h3>Book New Appointment</h3>
+            <div class="search-bar">
+                Search for doctors or specialties
+            </div>
+            <div class="specialty-chips">
+                <div class="chip selected">Cardiology</div>
+                <div class="chip">Neurology</div>
+                <div class="chip">Orthopedics</div>
+            </div>
+            <button style="width: 100%; padding: 10px; background: #666; color: white; border: none; border-radius: 5px;">
+                Book New Appointment
+            </button>
+        </div>
+
+        <!-- Guidelines -->
+        <div class="card">
+            <h3>Appointment Guidelines</h3>
+            <div class="appointment-card">
+                • Arrive 15 minutes early
+            </div>
+            <div class="appointment-card">
+                • Bring your insurance card
+            </div>
+            <div class="appointment-card">
+                • Wear a face mask
+            </div>
+        </div>
+    </div>
+</body>
+</html>

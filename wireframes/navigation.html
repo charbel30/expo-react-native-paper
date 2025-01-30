@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health App Wireframes - Navigation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 40px;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+        }
+        .screens-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .screen-link {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #333;
+            transition: transform 0.2s;
+        }
+        .screen-link:hover {
+            transform: translateY(-5px);
+            background: #ebebeb;
+        }
+        .icon {
+            width: 40px;
+            height: 40px;
+            background: #666;
+            border-radius: 20px;
+            margin: 0 auto 10px;
+        }
+        .description {
+            color: #666;
+            font-size: 14px;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Health App Wireframes</h1>
+        <div class="screens-grid">
+            <a href="index.html" class="screen-link">
+                <div class="icon"></div>
+                <h3>Home</h3>
+                <div class="description">
+                    Dashboard with health overview, medications, and appointments
+                </div>
+            </a>
+            <a href="health-monitoring.html" class="screen-link">
+                <div class="icon"></div>
+                <h3>Health Monitoring</h3>
+                <div class="description">
+                    Track vital signs, symptoms, and health trends
+                </div>
+            </a>
+            <a href="appointments.html" class="screen-link">
+                <div class="icon"></div>
+                <h3>Appointments</h3>
+                <div class="description">
+                    Schedule and manage doctor appointments
+                </div>
+            </a>
+            <a href="emergency.html" class="screen-link">
+                <div class="icon"></div>
+                <h3>Emergency</h3>
+                <div class="description">
+                    Quick access to emergency contacts and protocols
+                </div>
+            </a>
+            <a href="profile.html" class="screen-link">
+                <div class="icon"></div>
+                <h3>Profile</h3>
+                <div class="description">
+                    Personal information, medical history, and settings
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

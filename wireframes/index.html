@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health App Wireframes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .phone-frame {
+            width: 360px;
+            height: 640px;
+            background: white;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background: #ddd;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+        .stats-grid {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            width: 45%;
+            height: 100px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .card {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .progress-bar {
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .progress-fill {
+            width: 50%;
+            height: 100%;
+            background: #666;
+            border-radius: 5px;
+        }
+        .list-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .metrics-grid {
+            display: flex;
+            justify-content: space-between;
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .metric {
+            text-align: center;
+            width: 30%;
+        }
+        .emergency-btn {
+            background: #ff4444;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .screen-title {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="screen-title">Home Screen</h1>
+    <div class="phone-frame">
+        <!-- Header with Avatar -->
+        <div class="header">
+            <div class="avatar"></div>
+            <div>
+                <div>Welcome Back, John</div>
+                <div style="color: #666;">Let's check your health status</div>
+            </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div>Medications</div>
+                <div style="font-size: 24px;">50%</div>
+                <div style="color: #666;">Taken today</div>
+            </div>
+            <div class="stat-card">
+                <div>Appointments</div>
+                <div style="font-size: 24px;">2</div>
+                <div style="color: #666;">This week</div>
+            </div>
+        </div>
+
+        <!-- Medications -->
+        <div class="card">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>Today's Medications</div>
+                <div style="width: 24px; height: 24px; background: #ddd; border-radius: 12px;"></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            <div class="list-item">Aspirin - 8:00 AM</div>
+            <div class="list-item">Vitamin D - 9:00 AM</div>
+        </div>
+
+        <!-- Appointments -->
+        <div class="card">
+            <div>Upcoming Appointments</div>
+            <div class="list-item">
+                <div>Dr. Smith</div>
+                <div style="color: #666;">Cardiologist - Feb 1, 10:00 AM</div>
+            </div>
+            <div class="list-item">
+                <div>Dr. Johnson</div>
+                <div style="color: #666;">Primary Care - Feb 15, 2:30 PM</div>
+            </div>
+        </div>
+
+        <!-- Health Metrics -->
+        <div class="card">
+            <div>Health Metrics</div>
+            <div class="metrics-grid">
+                <div class="metric">
+                    <div>Blood Pressure</div>
+                    <div>120/80</div>
+                </div>
+                <div class="metric">
+                    <div>Weight</div>
+                    <div>70 kg</div>
+                </div>
+                <div class="metric">
+                    <div>Glucose</div>
+                    <div>95 mg/dL</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Emergency Button -->
+        <div class="emergency-btn">
+            Emergency Contact
+        </div>
+    </div>
+</body>
+</html>

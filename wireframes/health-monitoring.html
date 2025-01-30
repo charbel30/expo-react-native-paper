@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health App Wireframes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .phone-frame {
+            width: 360px;
+            height: 640px;
+            background: white;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+        .card {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .input-field {
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: white;
+        }
+        .time-selector {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            background: #ddd;
+            padding: 5px;
+            border-radius: 5px;
+        }
+        .time-option {
+            flex: 1;
+            text-align: center;
+            padding: 5px;
+        }
+        .time-option.selected {
+            background: white;
+            border-radius: 3px;
+        }
+        .chart-placeholder {
+            height: 200px;
+            background: #ddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        .pain-scale {
+            display: flex;
+            justify-content: space-between;
+            margin: 15px 0;
+        }
+        .pain-level {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .body-map {
+            height: 200px;
+            background: #ddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+        }
+        .symptom-card {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .screen-title {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="screen-title">Health Monitoring Screen</h1>
+    <div class="phone-frame">
+        <!-- Quick Health Check -->
+        <div class="card">
+            <h3>Quick Health Check</h3>
+            <div class="input-group">
+                <div>Blood Pressure (mmHg)</div>
+                <div class="input-row">
+                    <input class="input-field" placeholder="Systolic">
+                    <input class="input-field" placeholder="Diastolic">
+                </div>
+            </div>
+            <div class="input-group">
+                <div class="input-row">
+                    <div style="flex: 1;">
+                        <div>Weight (kg)</div>
+                        <input class="input-field" placeholder="Weight">
+                    </div>
+                    <div style="flex: 1;">
+                        <div>Glucose (mg/dL)</div>
+                        <input class="input-field" placeholder="Glucose">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Health Trends -->
+        <div class="card">
+            <h3>Health Trends</h3>
+            <div class="time-selector">
+                <div class="time-option">Week</div>
+                <div class="time-option selected">Month</div>
+                <div class="time-option">Year</div>
+            </div>
+            <div class="chart-placeholder">
+                Health Metrics Visualization
+            </div>
+            <div style="margin-top: 15px;">
+                <div style="margin-bottom: 10px;">Recent Readings</div>
+                <div class="symptom-card">Blood Pressure: 120/80 - Jan 26</div>
+                <div class="symptom-card">Blood Pressure: 118/79 - Jan 25</div>
+            </div>
+        </div>
+
+        <!-- Symptom Tracking -->
+        <div class="card">
+            <h3>Symptom Tracking</h3>
+            <div>Pain Level</div>
+            <div class="pain-scale">
+                <div class="pain-level">0</div>
+                <div class="pain-level">2</div>
+                <div class="pain-level">4</div>
+                <div class="pain-level">6</div>
+                <div class="pain-level">8</div>
+                <div class="pain-level">10</div>
+            </div>
+            <div class="body-map">
+                Tap to indicate pain location
+            </div>
+            <div style="margin-top: 15px;">
+                <div style="margin-bottom: 10px;">Recent Symptoms</div>
+                <div class="symptom-card">
+                    <div>Headache</div>
+                    <div style="color: #666;">Severity: 6/10</div>
+                    <div style="color: #666;">Duration: 2 hours</div>
+                </div>
+                <div class="symptom-card">
+                    <div>Joint Pain</div>
+                    <div style="color: #666;">Severity: 4/10</div>
+                    <div style="color: #666;">Duration: 3 hours</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Sharing -->
+        <div class="card">
+            <h3>Data Sharing</h3>
+            <div class="symptom-card">
+                Share with Dr. Smith (Cardiologist)
+            </div>
+            <div class="symptom-card">
+                Share with Dr. Johnson (Primary Care)
+            </div>
+        </div>
+    </div>
+</body>
+</html>

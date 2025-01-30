@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health App Wireframes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .phone-frame {
+            width: 360px;
+            height: 640px;
+            background: white;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            overflow-y: auto;
+        }
+        .emergency-card {
+            background: #ff4444;
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .emergency-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .emergency-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            margin-right: 15px;
+        }
+        .emergency-button {
+            background: white;
+            color: #ff4444;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .card {
+            background: #f5f5f5;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .contact-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .contact-avatar {
+            width: 40px;
+            height: 40px;
+            background: #ddd;
+            border-radius: 20px;
+            margin-right: 15px;
+        }
+        .protocol-card {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .step-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .step-number {
+            width: 24px;
+            height: 24px;
+            background: #ff4444;
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 12px;
+        }
+        .screen-title {
+            text-align: center;
+            font-size: 24px;
+            margin: 20px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="screen-title">Emergency Screen</h1>
+    <div class="phone-frame">
+        <!-- Emergency Actions -->
+        <div class="emergency-card">
+            <div class="emergency-header">
+                <div class="emergency-icon"></div>
+                <div>
+                    <div style="font-size: 20px; font-weight: bold;">Emergency Services</div>
+                    <div style="opacity: 0.9;">Get immediate medical assistance</div>
+                </div>
+            </div>
+            <div class="emergency-button">Call 911</div>
+            <div class="emergency-button">Share Location</div>
+        </div>
+
+        <!-- Emergency Contacts -->
+        <div class="card">
+            <h3>Emergency Contacts</h3>
+            <div class="contact-card">
+                <div class="contact-avatar"></div>
+                <div style="flex: 1;">
+                    <div>Dr. Smith (Cardiologist)</div>
+                    <div style="color: #666;">+1 (555) 123-4567</div>
+                </div>
+                <div style="width: 40px; height: 40px; background: #f5f5f5; border-radius: 20px;"></div>
+            </div>
+            <div class="contact-card">
+                <div class="contact-avatar"></div>
+                <div style="flex: 1;">
+                    <div>Dr. Johnson (Primary)</div>
+                    <div style="color: #666;">+1 (555) 987-6543</div>
+                </div>
+                <div style="width: 40px; height: 40px; background: #f5f5f5; border-radius: 20px;"></div>
+            </div>
+        </div>
+
+        <!-- Emergency Protocols -->
+        <div class="card">
+            <h3>Emergency Protocols</h3>
+            <div class="protocol-card">
+                <div style="font-weight: bold; margin-bottom: 10px;">Chest Pain</div>
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div>Sit down and try to remain calm</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div>Take prescribed nitroglycerin if available</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div>Call emergency services (911) immediately</div>
+                </div>
+            </div>
+            <div class="protocol-card">
+                <div style="font-weight: bold; margin-bottom: 10px;">Severe Low Blood Sugar</div>
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div>Check blood sugar level if possible</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div>Take 15g of fast-acting carbohydrates</div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div>Wait 15 minutes and recheck blood sugar</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Resources -->
+        <div class="card">
+            <h3>Additional Resources</h3>
+            <div class="contact-card">
+                <div style="flex: 1;">
+                    <div>Nearest Hospital</div>
+                    <div style="color: #666;">City General Hospital - 1.2 miles</div>
+                </div>
+                <div style="width: 40px; height: 40px; background: #f5f5f5; border-radius: 20px;"></div>
+            </div>
+            <div class="contact-card">
+                <div style="flex: 1;">
+                    <div>Poison Control</div>
+                    <div style="color: #666;">1-800-222-1222</div>
+                </div>
+                <div style="width: 40px; height: 40px; background: #f5f5f5; border-radius: 20px;"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

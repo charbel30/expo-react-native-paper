@@ -4,10 +4,10 @@
     <title>Health App Wireframes</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             margin: 0;
             padding: 20px;
-            background: #f0f0f0;
+            background: #f9f9f9;
         }
         .phone-frame {
             width: 360px;
@@ -15,22 +15,41 @@
             background: white;
             margin: 20px auto;
             padding: 20px;
+            border: 2px dashed #999;
             border-radius: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
             overflow-y: auto;
         }
+        .phone-frame::before {
+            content: '📱';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+        }
         .profile-header {
-            background: #666;
+            background: repeating-linear-gradient(-45deg, #666, #666 10px, #777 10px, #777 20px);
             color: white;
             margin: -20px -20px 0;
             padding: 40px 20px;
             text-align: center;
             border-radius: 20px 20px 0 0;
+            border-bottom: 2px dashed white;
+            position: relative;
+        }
+        .profile-header::after {
+            content: '✏️';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
         }
         .profile-avatar {
             width: 100px;
             height: 100px;
-            background: white;
+            background: repeating-linear-gradient(45deg, #ddd, #ddd 5px, #fff 5px, #fff 10px);
+            border: 3px solid white;
             border-radius: 50px;
             margin: 0 auto 15px;
             display: flex;
@@ -38,6 +57,7 @@
             justify-content: center;
             font-size: 36px;
             color: #666;
+            transform: rotate(-3deg);
         }
         .edit-button {
             background: white;
@@ -46,46 +66,85 @@
             border-radius: 20px;
             display: inline-block;
             margin-top: 15px;
+            border: 2px solid #666;
+            transform: rotate(2deg);
         }
         .card {
-            background: #f5f5f5;
-            border-radius: 10px;
+            border: 2px solid #666;
             padding: 15px;
             margin-bottom: 20px;
+            border-radius: 10px;
+            position: relative;
+            background: white;
+            transform: rotate(-0.5deg);
+        }
+        .card:nth-child(2n) {
+            transform: rotate(0.5deg);
+        }
+        .card::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            z-index: -1;
         }
         .info-item {
             display: flex;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #ddd;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px dashed #999;
+            border-radius: 8px;
+            background: repeating-linear-gradient(-45deg, #fff, #fff 10px, #f9f9f9 10px, #f9f9f9 20px);
         }
         .info-icon {
             width: 24px;
             height: 24px;
-            background: #ddd;
+            border: 2px solid #666;
             border-radius: 12px;
             margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
         }
         .condition-card {
-            background: white;
             padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #666;
             border-radius: 8px;
-            margin-bottom: 10px;
+            background: white;
+            transform: rotate(-1deg);
+        }
+        .condition-card:nth-child(2n) {
+            transform: rotate(1deg);
         }
         .chip {
             display: inline-block;
-            background: #ddd;
             padding: 5px 15px;
-            border-radius: 15px;
             margin: 5px;
+            border: 2px solid #666;
+            border-radius: 15px;
             font-size: 14px;
+            background: repeating-linear-gradient(45deg, #fff, #fff 10px, #f9f9f9 10px, #f9f9f9 20px);
+            transform: rotate(-2deg);
+        }
+        .chip:nth-child(2n) {
+            transform: rotate(2deg);
         }
         .toggle-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid #ddd;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px dashed #999;
+            border-radius: 8px;
+            background: repeating-linear-gradient(-45deg, #fff, #fff 10px, #f9f9f9 10px, #f9f9f9 20px);
         }
         .toggle {
             width: 40px;
@@ -93,6 +152,7 @@
             background: #666;
             border-radius: 12px;
             position: relative;
+            border: 2px solid #666;
         }
         .toggle::after {
             content: '';
@@ -106,116 +166,119 @@
         }
         .logout-button {
             background: white;
-            border: 1px solid #ff4444;
+            border: 2px solid #ff4444;
             color: #ff4444;
             padding: 12px;
             text-align: center;
             border-radius: 8px;
             margin-top: 20px;
+            transform: rotate(-1deg);
+            font-weight: bold;
         }
         .screen-title {
             text-align: center;
             font-size: 24px;
             margin: 20px 0;
             color: #333;
+            text-decoration: underline wavy #666;
         }
     </style>
 </head>
 <body>
-    <h1 class="screen-title">Profile Screen</h1>
+    <h1 class="screen-title">✏️ Profile Screen Wireframe</h1>
     <div class="phone-frame">
         <!-- Profile Header -->
         <div class="profile-header">
-            <div class="profile-avatar">JD</div>
-            <div style="font-size: 20px;">John Doe</div>
-            <div style="opacity: 0.8;">Patient ID: #12345</div>
-            <div class="edit-button">Edit Profile</div>
+            <div class="profile-avatar">[JD]</div>
+            <div style="font-size: 20px;">[User Name]</div>
+            <div style="opacity: 0.8;">ID: #[12345]</div>
+            <div class="edit-button">✏️ Edit Profile</div>
         </div>
 
         <!-- Personal Information -->
         <div class="card">
-            <h3>Personal Information</h3>
+            <h3>👤 Personal Information</h3>
             <div class="info-item">
-                <div class="info-icon"></div>
+                <div class="info-icon">📅</div>
                 <div>
                     <div>Date of Birth</div>
-                    <div style="color: #666;">1985-06-15</div>
+                    <div style="color: #666;">[MM/DD/YYYY]</div>
                 </div>
             </div>
             <div class="info-item">
-                <div class="info-icon"></div>
+                <div class="info-icon">✉️</div>
                 <div>
                     <div>Email</div>
-                    <div style="color: #666;">john.doe@example.com</div>
+                    <div style="color: #666;">[email@example.com]</div>
                 </div>
             </div>
             <div class="info-item">
-                <div class="info-icon"></div>
+                <div class="info-icon">📞</div>
                 <div>
                     <div>Phone</div>
-                    <div style="color: #666;">+1 (555) 123-4567</div>
+                    <div style="color: #666;">[+1 234-567-8900]</div>
                 </div>
             </div>
         </div>
 
         <!-- Medical History -->
         <div class="card">
-            <h3>Medical History</h3>
+            <h3>🏥 Medical History</h3>
             <div class="condition-card">
-                <div style="font-weight: bold;">Hypertension</div>
-                <div style="color: #666;">Diagnosed in 2020</div>
+                <div style="font-weight: bold;">🩺 [Condition Name]</div>
+                <div style="color: #666;">Diagnosed: [YYYY]</div>
             </div>
             <div class="condition-card">
-                <div style="font-weight: bold;">Type 2 Diabetes</div>
-                <div style="color: #666;">Diagnosed in 2019</div>
+                <div style="font-weight: bold;">🩺 [Condition Name]</div>
+                <div style="color: #666;">Diagnosed: [YYYY]</div>
             </div>
-            <h4>Allergies</h4>
+            <h4>⚠️ Allergies</h4>
             <div>
-                <div class="chip">Penicillin</div>
-                <div class="chip">Peanuts</div>
+                <div class="chip">🚫 [Allergy 1]</div>
+                <div class="chip">🚫 [Allergy 2]</div>
             </div>
         </div>
 
         <!-- Insurance Information -->
         <div class="card">
-            <h3>Insurance Information</h3>
+            <h3>💳 Insurance Information</h3>
             <div class="info-item">
-                <div class="info-icon"></div>
+                <div class="info-icon">🏢</div>
                 <div>
                     <div>Provider</div>
-                    <div style="color: #666;">HealthCare Plus</div>
+                    <div style="color: #666;">[Provider Name]</div>
                 </div>
             </div>
             <div class="info-item">
-                <div class="info-icon"></div>
+                <div class="info-icon">🔢</div>
                 <div>
                     <div>Policy Number</div>
-                    <div style="color: #666;">HCP123456789</div>
+                    <div style="color: #666;">[XXXXX-XXXXX]</div>
                 </div>
             </div>
         </div>
 
         <!-- Privacy Settings -->
         <div class="card">
-            <h3>Privacy Settings</h3>
+            <h3>🔒 Privacy Settings</h3>
             <div class="toggle-row">
                 <div>
                     <div>Data Sharing</div>
-                    <div style="color: #666;">Share health data with providers</div>
+                    <div style="color: #666;">[Share health data]</div>
                 </div>
                 <div class="toggle"></div>
             </div>
             <div class="toggle-row">
                 <div>
                     <div>Notifications</div>
-                    <div style="color: #666;">Receive reminders</div>
+                    <div style="color: #666;">[Get reminders]</div>
                 </div>
                 <div class="toggle"></div>
             </div>
         </div>
 
         <!-- Logout Button -->
-        <div class="logout-button">Logout</div>
+        <div class="logout-button">🚪 Logout</div>
     </div>
 </body>
 </html>

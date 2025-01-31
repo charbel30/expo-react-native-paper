@@ -4,10 +4,10 @@
     <title>Health App Wireframes</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             margin: 0;
             padding: 20px;
-            background: #f0f0f0;
+            background: #f9f9f9;
         }
         .phone-frame {
             width: 360px;
@@ -15,140 +15,197 @@
             background: white;
             margin: 20px auto;
             padding: 20px;
+            border: 2px dashed #999;
             border-radius: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+            overflow-y: auto;
+        }
+        .phone-frame::before {
+            content: '📱';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
         }
         .header {
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+            border: 2px solid #666;
+            padding: 10px;
+            border-radius: 10px;
+            transform: rotate(-0.5deg);
         }
         .avatar {
             width: 40px;
             height: 40px;
-            background: #ddd;
+            background: repeating-linear-gradient(45deg, #ddd, #ddd 5px, #fff 5px, #fff 10px);
             border-radius: 20px;
             margin-right: 10px;
+            border: 2px solid #666;
         }
         .stats-grid {
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
+            gap: 10px;
         }
         .stat-card {
-            width: 45%;
-            height: 100px;
-            background: #f5f5f5;
-            border-radius: 10px;
+            flex: 1;
+            border: 2px solid #666;
             padding: 10px;
+            border-radius: 8px;
+            background: repeating-linear-gradient(-45deg, #fff, #fff 10px, #f9f9f9 10px, #f9f9f9 20px);
+            transform: rotate(1deg);
+        }
+        .stat-card:nth-child(2) {
+            transform: rotate(-1deg);
         }
         .card {
-            background: #f5f5f5;
-            border-radius: 10px;
+            border: 2px solid #666;
             padding: 15px;
             margin-bottom: 20px;
+            border-radius: 10px;
+            position: relative;
+            background: white;
+        }
+        .card::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            z-index: -1;
+            transform: rotate(-0.5deg);
         }
         .progress-bar {
-            height: 10px;
-            background: #ddd;
-            border-radius: 5px;
+            height: 15px;
+            background: repeating-linear-gradient(45deg, #ddd, #ddd 5px, #fff 5px, #fff 10px);
+            border-radius: 8px;
             margin: 10px 0;
+            border: 2px solid #666;
+            position: relative;
+            overflow: hidden;
         }
         .progress-fill {
             width: 50%;
             height: 100%;
-            background: #666;
-            border-radius: 5px;
+            background: repeating-linear-gradient(-45deg, #666, #666 5px, #999 5px, #999 10px);
         }
         .list-item {
-            padding: 10px 0;
-            border-bottom: 1px solid #ddd;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #999;
+            border-radius: 5px;
+            background: repeating-linear-gradient(-45deg, #fff, #fff 10px, #f9f9f9 10px, #f9f9f9 20px);
         }
         .metrics-grid {
             display: flex;
             justify-content: space-between;
-            background: #f5f5f5;
             padding: 10px;
-            border-radius: 10px;
+            border: 2px solid #666;
+            border-radius: 8px;
+            background: repeating-linear-gradient(45deg, #fff, #fff 10px, #f9f9f9 10px, #f9f9f9 20px);
         }
         .metric {
             text-align: center;
             width: 30%;
+            padding: 5px;
+            border: 1px dashed #999;
+            border-radius: 5px;
         }
         .emergency-btn {
-            background: #ff4444;
-            color: white;
+            background: repeating-linear-gradient(-45deg, #ff9999, #ff9999 5px, #ff8888 5px, #ff8888 10px);
             padding: 15px;
             text-align: center;
             border-radius: 10px;
+            border: 2px solid #ff4444;
+            font-weight: bold;
+            transform: rotate(1deg);
             margin-top: 20px;
+            cursor: pointer;
         }
         .screen-title {
             text-align: center;
             font-size: 24px;
             margin: 20px 0;
             color: #333;
+            text-decoration: underline wavy #666;
+        }
+        /* Sketchy icons */
+        .icon {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #666;
+            border-radius: 12px;
+            display: inline-block;
+            margin-right: 8px;
+            vertical-align: middle;
         }
     </style>
 </head>
 <body>
-    <h1 class="screen-title">Home Screen</h1>
+    <h1 class="screen-title">✏️ Home Screen Wireframe</h1>
     <div class="phone-frame">
         <!-- Header with Avatar -->
         <div class="header">
             <div class="avatar"></div>
             <div>
-                <div>Welcome Back, John</div>
-                <div style="color: #666;">Let's check your health status</div>
+                <div style="font-weight: bold;">Welcome Back, [User]</div>
+                <div style="color: #666; font-style: italic;">Health status overview</div>
             </div>
         </div>
 
         <!-- Quick Stats -->
         <div class="stats-grid">
             <div class="stat-card">
-                <div>Medications</div>
-                <div style="font-size: 24px;">50%</div>
-                <div style="color: #666;">Taken today</div>
+                <div class="icon">💊</div>
+                <div style="font-size: 24px; font-weight: bold;">50%</div>
+                <div style="color: #666;">Meds taken</div>
             </div>
             <div class="stat-card">
-                <div>Appointments</div>
-                <div style="font-size: 24px;">2</div>
-                <div style="color: #666;">This week</div>
+                <div class="icon">📅</div>
+                <div style="font-size: 24px; font-weight: bold;">2</div>
+                <div style="color: #666;">Appointments</div>
             </div>
         </div>
 
         <!-- Medications -->
         <div class="card">
             <div style="display: flex; justify-content: space-between; align-items: center;">
-                <div>Today's Medications</div>
-                <div style="width: 24px; height: 24px; background: #ddd; border-radius: 12px;"></div>
+                <div><span class="icon">💊</span> Today's Medications</div>
+                <div class="icon">➕</div>
             </div>
             <div class="progress-bar">
                 <div class="progress-fill"></div>
             </div>
-            <div class="list-item">Aspirin - 8:00 AM</div>
-            <div class="list-item">Vitamin D - 9:00 AM</div>
+            <div class="list-item">Medicine A - 8:00 AM ⭕</div>
+            <div class="list-item">Medicine B - 9:00 AM ✅</div>
         </div>
 
         <!-- Appointments -->
         <div class="card">
-            <div>Upcoming Appointments</div>
+            <div><span class="icon">📅</span> Upcoming Appointments</div>
             <div class="list-item">
-                <div>Dr. Smith</div>
-                <div style="color: #666;">Cardiologist - Feb 1, 10:00 AM</div>
+                <div>Dr. [Name]</div>
+                <div style="color: #666;">[Specialty] - [Date/Time]</div>
             </div>
             <div class="list-item">
-                <div>Dr. Johnson</div>
-                <div style="color: #666;">Primary Care - Feb 15, 2:30 PM</div>
+                <div>Dr. [Name]</div>
+                <div style="color: #666;">[Specialty] - [Date/Time]</div>
             </div>
         </div>
 
         <!-- Health Metrics -->
         <div class="card">
-            <div>Health Metrics</div>
+            <div><span class="icon">📊</span> Health Metrics</div>
             <div class="metrics-grid">
                 <div class="metric">
-                    <div>Blood Pressure</div>
+                    <div>BP</div>
                     <div>120/80</div>
                 </div>
                 <div class="metric">
@@ -156,15 +213,15 @@
                     <div>70 kg</div>
                 </div>
                 <div class="metric">
-                    <div>Glucose</div>
-                    <div>95 mg/dL</div>
+                    <div>Sugar</div>
+                    <div>95</div>
                 </div>
             </div>
         </div>
 
         <!-- Emergency Button -->
         <div class="emergency-btn">
-            Emergency Contact
+            🚨 Emergency Contact
         </div>
     </div>
 </body>

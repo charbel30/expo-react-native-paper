@@ -4,10 +4,10 @@
     <title>Health App Wireframes</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
             margin: 0;
             padding: 20px;
-            background: #f0f0f0;
+            background: #f9f9f9;
         }
         .phone-frame {
             width: 360px;
@@ -15,56 +15,106 @@
             background: white;
             margin: 20px auto;
             padding: 20px;
+            border: 2px dashed #999;
             border-radius: 20px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
             overflow-y: auto;
         }
+        .phone-frame::before {
+            content: '📱';
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+        }
         .card {
-            background: #f5f5f5;
-            border-radius: 10px;
+            border: 2px solid #666;
             padding: 15px;
             margin-bottom: 20px;
+            border-radius: 10px;
+            position: relative;
+            background: white;
+            transform: rotate(-0.5deg);
+        }
+        .card:nth-child(2n) {
+            transform: rotate(0.5deg);
+        }
+        .card::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            z-index: -1;
         }
         .input-group {
             margin-bottom: 15px;
+            border: 1px dashed #999;
+            padding: 10px;
+            border-radius: 8px;
+            background: repeating-linear-gradient(-45deg, #fff, #fff 10px, #f9f9f9 10px, #f9f9f9 20px);
         }
         .input-row {
             display: flex;
             gap: 10px;
-            margin-bottom: 10px;
+            margin: 10px 0;
         }
         .input-field {
             flex: 1;
             padding: 8px;
-            border: 1px solid #ddd;
+            border: 2px solid #666;
             border-radius: 5px;
             background: white;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
         }
         .time-selector {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 20px;
-            background: #ddd;
+            margin: 15px 0;
+            border: 2px solid #666;
             padding: 5px;
             border-radius: 5px;
+            background: repeating-linear-gradient(45deg, #fff, #fff 10px, #f9f9f9 10px, #f9f9f9 20px);
         }
         .time-option {
             flex: 1;
             text-align: center;
             padding: 5px;
+            border-right: 1px dashed #999;
+        }
+        .time-option:last-child {
+            border-right: none;
         }
         .time-option.selected {
-            background: white;
+            background: #666;
+            color: white;
             border-radius: 3px;
         }
         .chart-placeholder {
             height: 200px;
-            background: #ddd;
+            border: 2px solid #666;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 15px;
+            margin: 15px 0;
+            background: repeating-linear-gradient(45deg, #fff, #fff 10px, #f9f9f9 10px, #f9f9f9 20px);
+            position: relative;
+        }
+        .chart-placeholder::before {
+            content: '📈';
+            font-size: 48px;
+        }
+        .chart-placeholder::after {
+            content: '[Chart goes here]';
+            position: absolute;
+            bottom: 20px;
+            font-style: italic;
+            color: #666;
         }
         .pain-scale {
             display: flex;
@@ -72,59 +122,83 @@
             margin: 15px 0;
         }
         .pain-level {
-            width: 30px;
-            height: 30px;
-            border-radius: 15px;
-            background: #ddd;
+            width: 40px;
+            height: 40px;
+            border: 2px solid #666;
+            border-radius: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: white;
+            transform: rotate(-3deg);
+        }
+        .pain-level:nth-child(2n) {
+            transform: rotate(3deg);
         }
         .body-map {
             height: 200px;
-            background: #ddd;
+            border: 2px solid #666;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 15px 0;
+            background: repeating-linear-gradient(-45deg, #fff, #fff 10px, #f9f9f9 10px, #f9f9f9 20px);
+            position: relative;
+        }
+        .body-map::before {
+            content: '👤';
+            font-size: 48px;
+        }
+        .body-map::after {
+            content: '[Tap areas to indicate pain]';
+            position: absolute;
+            bottom: 20px;
+            font-style: italic;
+            color: #666;
         }
         .symptom-card {
-            background: white;
             padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 10px;
+            margin: 10px 0;
+            border: 2px solid #666;
+            border-radius: 8px;
+            background: white;
+            transform: rotate(-1deg);
+        }
+        .symptom-card:nth-child(2n) {
+            transform: rotate(1deg);
         }
         .screen-title {
             text-align: center;
             font-size: 24px;
             margin: 20px 0;
             color: #333;
+            text-decoration: underline wavy #666;
         }
     </style>
 </head>
 <body>
-    <h1 class="screen-title">Health Monitoring Screen</h1>
+    <h1 class="screen-title">✏️ Health Monitoring Wireframe</h1>
     <div class="phone-frame">
         <!-- Quick Health Check -->
         <div class="card">
-            <h3>Quick Health Check</h3>
+            <h3>📝 Quick Health Check</h3>
             <div class="input-group">
                 <div>Blood Pressure (mmHg)</div>
                 <div class="input-row">
-                    <input class="input-field" placeholder="Systolic">
-                    <input class="input-field" placeholder="Diastolic">
+                    <input class="input-field" placeholder="[Systolic]">
+                    <input class="input-field" placeholder="[Diastolic]">
                 </div>
             </div>
             <div class="input-group">
                 <div class="input-row">
                     <div style="flex: 1;">
                         <div>Weight (kg)</div>
-                        <input class="input-field" placeholder="Weight">
+                        <input class="input-field" placeholder="[Weight]">
                     </div>
                     <div style="flex: 1;">
                         <div>Glucose (mg/dL)</div>
-                        <input class="input-field" placeholder="Glucose">
+                        <input class="input-field" placeholder="[Glucose]">
                     </div>
                 </div>
             </div>
@@ -132,25 +206,23 @@
 
         <!-- Health Trends -->
         <div class="card">
-            <h3>Health Trends</h3>
+            <h3>📊 Health Trends</h3>
             <div class="time-selector">
                 <div class="time-option">Week</div>
                 <div class="time-option selected">Month</div>
                 <div class="time-option">Year</div>
             </div>
-            <div class="chart-placeholder">
-                Health Metrics Visualization
-            </div>
+            <div class="chart-placeholder"></div>
             <div style="margin-top: 15px;">
-                <div style="margin-bottom: 10px;">Recent Readings</div>
-                <div class="symptom-card">Blood Pressure: 120/80 - Jan 26</div>
-                <div class="symptom-card">Blood Pressure: 118/79 - Jan 25</div>
+                <div style="margin-bottom: 10px; font-style: italic;">Recent Readings</div>
+                <div class="symptom-card">BP: 120/80 - [Date]</div>
+                <div class="symptom-card">BP: 118/79 - [Date]</div>
             </div>
         </div>
 
         <!-- Symptom Tracking -->
         <div class="card">
-            <h3>Symptom Tracking</h3>
+            <h3>🤒 Symptom Tracking</h3>
             <div>Pain Level</div>
             <div class="pain-scale">
                 <div class="pain-level">0</div>
@@ -160,32 +232,25 @@
                 <div class="pain-level">8</div>
                 <div class="pain-level">10</div>
             </div>
-            <div class="body-map">
-                Tap to indicate pain location
-            </div>
+            <div class="body-map"></div>
             <div style="margin-top: 15px;">
-                <div style="margin-bottom: 10px;">Recent Symptoms</div>
+                <div style="margin-bottom: 10px; font-style: italic;">Recent Symptoms</div>
                 <div class="symptom-card">
-                    <div>Headache</div>
-                    <div style="color: #666;">Severity: 6/10</div>
-                    <div style="color: #666;">Duration: 2 hours</div>
-                </div>
-                <div class="symptom-card">
-                    <div>Joint Pain</div>
-                    <div style="color: #666;">Severity: 4/10</div>
-                    <div style="color: #666;">Duration: 3 hours</div>
+                    <div>🤕 [Symptom Type]</div>
+                    <div style="color: #666;">Severity: [X]/10</div>
+                    <div style="color: #666;">Duration: [Time]</div>
                 </div>
             </div>
         </div>
 
         <!-- Data Sharing -->
         <div class="card">
-            <h3>Data Sharing</h3>
+            <h3>🔄 Data Sharing</h3>
             <div class="symptom-card">
-                Share with Dr. Smith (Cardiologist)
+                Share with Dr. [Name] (Specialist)
             </div>
             <div class="symptom-card">
-                Share with Dr. Johnson (Primary Care)
+                Share with Dr. [Name] (Primary)
             </div>
         </div>
     </div>
